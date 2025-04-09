@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { QueryProvider } from './context/query/QueryProvider.tsx';
+import { Theme } from '@radix-ui/themes';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryProvider>
-      <App />
+      <Theme>
+        <App />
+      </Theme>
     </QueryProvider>
   </StrictMode>
 );

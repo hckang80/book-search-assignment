@@ -5,7 +5,9 @@ export interface BookSearchParams {
   target?: BookSearchTarget;
 }
 
-export type BookSearchTarget = 'title' | 'isbn' | 'publisher' | 'person';
+export const bookSearchTargets = ['title', 'person', 'publisher'] as const;
+
+export type BookSearchTarget = (typeof bookSearchTargets)[number];
 
 export interface BookInstance {
   meta: BookMeta;
