@@ -1,6 +1,24 @@
 import './App.css';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchBookSearch } from './api';
+import { useDebounce } from './hooks';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const deferredSearchKeyword = useDebounce(searchQuery);
+
+  const { data } = useQuery({
+    queryKey: ['search', deferredSearchKeyword],
+    queryFn: () => fetchBookSearch({ query: deferredSearchKeyword }),
+    enabled: deferredSearchKeyword.trim().length > 0,
+    staleTime: 1000 * 60 * 5
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.currentTarget.value);
+  };
+
   return (
     <div>
       <header>
@@ -15,7 +33,24 @@ function App() {
         </ul>
       </header>
 
-      <main>도서 검색 영역</main>
+      <main>
+        <div>
+          <input
+            value={searchQuery}
+            onChange={handleInputChange}
+            placeholder="검색어를 입력하세요"
+            className="search-input"
+          />
+        </div>
+
+        <div>
+          {data?.meta.total_count ? (
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+          ) : (
+            '검색된 결과가 없습니다.'
+          )}
+        </div>
+      </main>
     </div>
   );
 }
