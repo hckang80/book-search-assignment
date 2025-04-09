@@ -16,7 +16,7 @@ function App() {
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.currentTarget.value);
+    setSearchQuery(e.currentTarget.value.trim());
   };
 
   return (
