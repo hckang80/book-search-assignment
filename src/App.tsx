@@ -1,3 +1,4 @@
+import '@radix-ui/themes/styles.css';
 import './App.css';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -7,17 +8,30 @@ import { DetailSearch } from './components';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchDetailQuery, setSearchDetailQuery] = useState('');
+  const [searchTarget, setSearchTarget] = useState<'title' | 'person' | 'publisher'>('title');
   const deferredSearchKeyword = useDebounce(searchQuery);
 
+  const params = {
+    query: searchDetailQuery || deferredSearchKeyword,
+    target: searchTarget
+  };
+
   const { data } = useQuery({
-    queryKey: ['search', deferredSearchKeyword],
-    queryFn: () => fetchBookSearch({ query: deferredSearchKeyword }),
-    enabled: deferredSearchKeyword.trim().length > 0,
+    queryKey: ['search', params],
+    queryFn: () => fetchBookSearch(params),
+    enabled: (deferredSearchKeyword || searchDetailQuery).trim().length > 0,
     staleTime: 1000 * 60 * 5
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.currentTarget.value.trim());
+  };
+
+  const handleDetailSearch = (query: string, target: typeof searchTarget) => {
+    setSearchQuery('');
+    setSearchDetailQuery(query);
+    setSearchTarget(target);
   };
 
   return (
@@ -43,7 +57,7 @@ function App() {
             className="search-input"
           />
 
-          <DetailSearch />
+          <DetailSearch onSubmit={handleDetailSearch} />
         </div>
 
         <div>
