@@ -5,11 +5,12 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchBookSearch } from './api';
 import { useDebounce } from './hooks';
 import { DetailSearch } from './components';
+import { bookSearchTargets, type BookSearchTarget } from './types';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDetailQuery, setSearchDetailQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<'title' | 'person' | 'publisher'>('title');
+  const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
   const deferredSearchKeyword = useDebounce(searchQuery);
 
   const params = {

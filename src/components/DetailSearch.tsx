@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Popover, Select } from '@radix-ui/themes';
+import { type BookSearchTarget, bookSearchTargets } from '../types';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
 }
 
 const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
-  const [target, setTarget] = useState<'title' | 'person' | 'publisher'>('title');
+  const [target, setTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -27,12 +28,14 @@ const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
 
         <Popover.Content maxWidth="450px">
           <form onSubmit={handleSubmit}>
-            <Select.Root value={target} onValueChange={(val) => setTarget(val as typeof target)}>
+            <Select.Root value={target} onValueChange={(val: BookSearchTarget) => setTarget(val)}>
               <Select.Trigger>{target}</Select.Trigger>
               <Select.Content>
-                <Select.Item value="title">제목</Select.Item>
-                <Select.Item value="person">저자명</Select.Item>
-                <Select.Item value="publisher">출판사</Select.Item>
+                {bookSearchTargets.map((label) => (
+                  <Select.Item value={label} key={label}>
+                    {label}
+                  </Select.Item>
+                ))}
               </Select.Content>
             </Select.Root>
 
