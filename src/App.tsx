@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchBookSearch } from './api';
 import { useDebounce } from './hooks';
+import { DetailSearch } from './components';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,6 +42,8 @@ function App() {
             placeholder="검색어를 입력하세요"
             className="search-input"
           />
+
+          <DetailSearch />
         </div>
 
         <div>
