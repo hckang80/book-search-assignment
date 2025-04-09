@@ -6,6 +6,8 @@ import { fetchBookSearch } from './api';
 import { useDebounce } from './hooks';
 import { DetailSearch } from './components';
 import { bookSearchTargets, type BookSearchTarget } from './types';
+import { TextField } from '@radix-ui/themes';
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,12 +53,15 @@ function App() {
 
       <main>
         <div>
-          <input
+          <TextField.Root
             value={searchQuery}
             onChange={handleInputChange}
             placeholder="검색어를 입력하세요"
-            className="search-input"
-          />
+          >
+            <TextField.Slot>
+              <MagnifyingGlassIcon height="16" width="16" />
+            </TextField.Slot>
+          </TextField.Root>
 
           <DetailSearch onSubmit={handleDetailSearch} />
         </div>
