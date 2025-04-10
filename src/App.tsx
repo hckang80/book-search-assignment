@@ -47,6 +47,7 @@ function App() {
     updateHistory(query);
     setSearchQuery(query);
     setShowHistory(false);
+    resetDetailSearchQuery();
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -57,6 +58,11 @@ function App() {
   const resetSearchQuery = () => {
     setValue('');
     setSearchQuery('');
+  };
+
+  const resetDetailSearchQuery = () => {
+    setSearchDetailQuery('');
+    setSearchTarget(bookSearchTargets[0]);
   };
 
   const applyDetailSearch = (query: string, target: BookSearchTarget) => {
