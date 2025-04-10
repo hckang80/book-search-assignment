@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { BookDocument, BookInstance } from '../types';
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from '../lib/constant';
 
 export const useInfiniteLikedBooks = (allBooks: BookDocument[]) => {
   return useInfiniteQuery({
