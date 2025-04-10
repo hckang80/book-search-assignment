@@ -38,31 +38,39 @@ function App() {
   };
 
   const updateHistory = (query: string) => {
-    const updated = [...new Set([...history, query])].slice(-1 * MAX_HISTORY_LENGTH);
-    setHistory(updated);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+    setHistory((prev) => {
+      const updated = [...new Set([...prev, query])].slice(-MAX_HISTORY_LENGTH);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const submitSearchQuery = (query: string) => {
+    if (!query) return;
+    updateHistory(query);
+    setSearchQuery(query);
+    setShowHistory(false);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!value) return;
-
-    updateHistory(value);
-    setSearchQuery(value);
-    setShowHistory(false);
+    submitSearchQuery(value);
   };
 
-  const handleDetailSearch = (query: string, target: typeof searchTarget) => {
+  const resetBasicSearch = () => {
     setValue('');
     setSearchQuery('');
+  };
+
+  const applyDetailSearch = (query: string, target: BookSearchTarget) => {
+    resetBasicSearch();
     setSearchDetailQuery(query);
     setSearchTarget(target);
   };
 
   const handleHistoryClick = (query: string) => {
     setValue(query);
-    setSearchQuery(query);
-    setShowHistory(false);
+    submitSearchQuery(query);
   };
 
   const handleDeleteHistory = (query: string) => {
@@ -112,7 +120,7 @@ function App() {
             </ul>
           )}
 
-          <DetailSearch onSubmit={handleDetailSearch} />
+          <DetailSearch onSubmit={applyDetailSearch} />
         </div>
 
         <div>
