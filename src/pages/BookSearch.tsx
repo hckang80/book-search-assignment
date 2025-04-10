@@ -3,6 +3,7 @@ import { BookList, DetailSearch, SearchBar, SearchHistory } from '../components'
 import { bookSearchTargets, type BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
+import * as styles from './BookSearch.css';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -80,20 +81,22 @@ export default function BookSearch() {
 
   return (
     <div>
-      <div>
-        <SearchBar
-          value={value}
-          onChange={handleInputChange}
-          onSubmit={handleFormSubmit}
-          onFocus={() => setShowHistory(true)}
-        />
+      <div className={styles.wrapper}>
+        <div className={styles.searchGroup}>
+          <SearchBar
+            value={value}
+            onChange={handleInputChange}
+            onSubmit={handleFormSubmit}
+            onFocus={() => setShowHistory(true)}
+          />
 
-        <SearchHistory
-          visible={showHistory}
-          history={history}
-          onSelect={handleHistorySelect}
-          onDelete={handleDeleteHistory}
-        />
+          <SearchHistory
+            visible={showHistory}
+            history={history}
+            onSelect={handleHistorySelect}
+            onDelete={handleDeleteHistory}
+          />
+        </div>
 
         <DetailSearch onSubmit={applyDetailSearch} />
       </div>
