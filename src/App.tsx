@@ -8,11 +8,17 @@ import { bookSearchTargets, type BookSearchTarget } from './types';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
+const LOCAL_STORAGE_KEY = 'search_history';
+const MAX_HISTORY_LENGTH = 8;
+
 function App() {
+  const storedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
+
   const [value, setValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchDetailQuery, setSearchDetailQuery] = useState('');
   const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
+  const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
 
   const params = {
     query: searchDetailQuery || searchQuery,
@@ -30,10 +36,17 @@ function App() {
     setValue(e.currentTarget.value.trim());
   };
 
+  const updateHistory = (query: string) => {
+    const updated = [...new Set([...history, query])].slice(-1 * MAX_HISTORY_LENGTH);
+    setHistory(updated);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!value) return;
 
+    updateHistory(value);
     setSearchQuery(value);
   };
 
