@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
 import { QueryProvider } from './context/query/QueryProvider.tsx';
-import { Theme } from '@radix-ui/themes';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import { BookSearch, BookFavorites } from './pages';
 
@@ -35,9 +34,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryProvider>
-      <Theme>
-        <RouterProvider router={router} />
-      </Theme>
+      <RouterProvider router={router} />
     </QueryProvider>
   </StrictMode>
 );
