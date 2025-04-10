@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useInfiniteBookSearch } from '../hooks/useInfiniteBookSearch';
+import { Accordion } from 'radix-ui';
 import type { BookSearchParams } from '../types';
 
 interface BookListProps {
@@ -36,13 +37,21 @@ const BookList = ({ query, params }: BookListProps) => {
 
   return (
     <>
-      {data?.pages.map((page, pageIndex) => (
-        <div key={pageIndex}>
-          {page.documents.map((book) => (
-            <div key={book.isbn}>{book.title}</div>
-          ))}
-        </div>
-      ))}
+      <Accordion.Root type="single" collapsible>
+        {data?.pages.map((page, pageIndex) => (
+          <div key={pageIndex} style={{ display: 'contents' }}>
+            {page.documents.map((book) => (
+              <Accordion.Item key={book.title + book.isbn} value={book.title + book.isbn}>
+                <Accordion.Trigger>상세보기</Accordion.Trigger>
+                <Accordion.Content>
+                  {book.title}
+                  <Accordion.Trigger>상세보기</Accordion.Trigger>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+          </div>
+        ))}
+      </Accordion.Root>
       <div ref={observerRef} style={{ height: 50 }} />
       {isFetchingNextPage && <p>로딩 중...</p>}
     </>
