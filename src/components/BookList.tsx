@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useInfiniteBookSearch } from '../hooks/useInfiniteBookSearch';
 import { Accordion } from 'radix-ui';
-import type { BookSearchParams } from '../types';
+import type { BookDocument, BookSearchParams } from '../types';
 
 interface BookListProps {
   query: string;
   params: BookSearchParams;
 }
+
+const LOCAL_STORAGE_KEY = 'liked_books';
 
 const BookList = ({ query, params }: BookListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBookSearch(
@@ -35,6 +37,16 @@ const BookList = ({ query, params }: BookListProps) => {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+  const toggleLikedBook = (book: BookDocument) => {
+    const saved: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+    const exists = saved.find((item) => item.isbn === book.isbn && item.title === book.title);
+    const updated = exists
+      ? saved.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
+      : [...saved, book];
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  };
+
   return (
     <>
       <Accordion.Root type="single" collapsible>
@@ -44,6 +56,9 @@ const BookList = ({ query, params }: BookListProps) => {
               <Accordion.Item key={book.title + book.isbn} value={book.title + book.isbn}>
                 <Accordion.Trigger>상세보기</Accordion.Trigger>
                 <Accordion.Content>
+                  <button onClick={() => toggleLikedBook(book)}>
+                    <img src={book.thumbnail} alt={book.title} />
+                  </button>
                   {book.title}
                   <Accordion.Trigger>상세보기</Accordion.Trigger>
                 </Accordion.Content>
