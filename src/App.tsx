@@ -3,7 +3,7 @@ import './App.css';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchBookSearch } from './api';
-import { DetailSearch } from './components';
+import { DetailSearch, SearchHistory } from './components';
 import { bookSearchTargets, type BookSearchTarget } from './types';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
@@ -68,7 +68,7 @@ function App() {
     setSearchTarget(target);
   };
 
-  const handleHistoryClick = (query: string) => {
+  const handleHistorySelect = (query: string) => {
     setValue(query);
     submitSearchQuery(query);
   };
@@ -100,7 +100,6 @@ function App() {
               value={value}
               onChange={handleInputChange}
               onFocus={() => setShowHistory(true)}
-              onBlur={() => setShowHistory(false)}
               placeholder="검색어를 입력하세요"
             >
               <TextField.Slot>
@@ -109,16 +108,12 @@ function App() {
             </TextField.Root>
           </form>
 
-          {showHistory && history.length > 0 && (
-            <ul>
-              {history.map((item) => (
-                <li key={item}>
-                  <button onClick={() => handleHistoryClick(item)}>{item}</button>
-                  <button onClick={() => handleDeleteHistory(item)}>삭제</button>
-                </li>
-              ))}
-            </ul>
-          )}
+          <SearchHistory
+            visible={showHistory}
+            history={history}
+            onSelect={handleHistorySelect}
+            onDelete={handleDeleteHistory}
+          />
 
           <DetailSearch onSubmit={applyDetailSearch} />
         </div>
