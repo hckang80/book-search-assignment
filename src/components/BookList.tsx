@@ -16,11 +16,11 @@ const BookList = ({ query, params }: BookListProps) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!observerRef.current || !hasNextPage) return;
+    if (!observerRef.current || !hasNextPage || isFetchingNextPage) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+        if (entries[0].isIntersecting) {
           fetchNextPage();
         }
       },
