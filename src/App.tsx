@@ -58,6 +58,12 @@ function App() {
     setSearchTarget(target);
   };
 
+  const handleHistoryClick = (query: string) => {
+    setValue(query);
+    setSearchQuery(query);
+    setShowHistory(false);
+  };
+
   return (
     <div>
       <header>
@@ -91,7 +97,7 @@ function App() {
             <ul>
               {history.map((item) => (
                 <li key={item}>
-                  <button>{item}</button>
+                  <button onClick={() => handleHistoryClick(item)}>{item}</button>
                   <button>삭제</button>
                 </li>
               ))}
