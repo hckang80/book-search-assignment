@@ -8,9 +8,9 @@ function App() {
   return (
     <div className={wrapper}>
       <header className={header}>
-        <h1 className={heading}>certicos books</h1>
+        <h1 className={`title1 ${heading}`}>certicos books</h1>
         <nav className={nav}>
-          <ul className={list}>
+          <ul className={`body1 ${list}`}>
             <li className={item}>
               <a href="/search">도서 검색</a>
             </li>
