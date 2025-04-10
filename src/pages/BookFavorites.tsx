@@ -1,3 +1,5 @@
+import { LikedList } from '../components';
+
 export default function BookFavorites() {
-  return 'BookFavorites';
+  return <LikedList />;
 }
