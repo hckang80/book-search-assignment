@@ -4,12 +4,39 @@ import './index.css';
 import App from './App.tsx';
 import { QueryProvider } from './context/query/QueryProvider.tsx';
 import { Theme } from '@radix-ui/themes';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
+import { BookSearch, BookFavorites } from './pages';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    Component: App,
+    children: [
+      {
+        index: true,
+        Component: () => <Navigate to="/search" replace />
+      },
+      {
+        path: 'search',
+        Component: BookSearch
+      },
+      {
+        path: 'favorites',
+        Component: BookFavorites
+      },
+      {
+        path: '*',
+        Component: () => <Navigate to="/search" replace />
+      }
+    ]
+  }
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryProvider>
       <Theme>
-        <App />
+        <RouterProvider router={router} />
       </Theme>
     </QueryProvider>
   </StrictMode>
