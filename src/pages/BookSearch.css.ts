@@ -21,7 +21,17 @@ export const searchResult = style({
 export const searchResultHeader = style({
   display: 'flex',
   gap: 16,
-  marginBottom: 36,
   fontWeight: 500,
   fontSize: 16
 });
+
+export const noData = style({
+  marginTop: 120,
+  textAlign: 'center'
+});
+
+export const noDataIcon = style({
+  marginBottom: 24
+});
+
+export const noDataText = style({});

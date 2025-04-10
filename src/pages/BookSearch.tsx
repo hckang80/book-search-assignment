@@ -4,6 +4,7 @@ import { bookSearchTargets, type BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
+import ICON_BOOK from '../assets/icon_book.svg';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -112,7 +113,10 @@ export default function BookSearch() {
         {data?.pages.length ? (
           <BookList query={queryText} params={params} />
         ) : (
-          <p>검색된 결과가 없습니다.</p>
+          <div className={styles.noData}>
+            <img className={styles.noDataIcon} src={ICON_BOOK} alt="" />
+            <p className={`text-secondary caption ${styles.noDataText}`}>검색된 결과가 없습니다.</p>
+          </div>
         )}
       </div>
     </section>
