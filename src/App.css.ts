@@ -109,3 +109,9 @@ export const list = style({
 });
 
 export const item = style({});
+
+export const linkActive = style({
+  textDecoration: 'underline',
+  textDecorationColor: 'var(--palette-primary)',
+  textUnderlineOffset: 8
+});
