@@ -2,6 +2,7 @@ import { useState, memo } from 'react';
 import { Button, Popover, Select, Theme } from '@radix-ui/themes';
 import { type BookSearchTarget, bookSearchTargets } from '../types';
 import * as styles from './DetailSearch.css';
+import { X } from 'lucide-react';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
@@ -30,6 +31,11 @@ const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
 
         <Popover.Content maxWidth="360px" className={styles.popoverContent}>
           <SearchForm onSubmit={handleFormSubmit} />
+          <Popover.Close>
+            <button className={styles.popoverCloseButton}>
+              <X size={20} color="#b1b8c0" />
+            </button>
+          </Popover.Close>
         </Popover.Content>
       </Popover.Root>
     </Theme>

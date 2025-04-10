@@ -89,6 +89,8 @@ i {
 }
 
 button {
+  all: unset;
+
   box-sizing: border-box;
 
   &:focus-visible {

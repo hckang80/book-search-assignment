@@ -11,6 +11,12 @@ export const popoverContent = style({
   WebkitBoxShadow: '0 4px 14px 6px #97979726'
 });
 
+export const popoverCloseButton = style({
+  position: 'absolute',
+  right: 8,
+  top: 8
+});
+
 export const inputGroup = style({
   display: 'flex',
   gap: 4,
