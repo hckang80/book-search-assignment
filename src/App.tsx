@@ -64,6 +64,12 @@ function App() {
     setShowHistory(false);
   };
 
+  const handleDeleteHistory = (query: string) => {
+    const updated = history.filter((item) => item !== query);
+    setHistory(updated);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  };
+
   return (
     <div>
       <header>
@@ -98,7 +104,7 @@ function App() {
               {history.map((item) => (
                 <li key={item}>
                   <button onClick={() => handleHistoryClick(item)}>{item}</button>
-                  <button>삭제</button>
+                  <button onClick={() => handleDeleteHistory(item)}>삭제</button>
                 </li>
               ))}
             </ul>
