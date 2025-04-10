@@ -1,3 +1,18 @@
+:root {
+  --max-width: '960px';
+
+  --palette-primary: #4880ee;
+  --palette-red: #e84118;
+  --palette-gray: #dadada;
+  --palette-light-gray: #f2f4f6;
+  --palette-white: #fff;
+  --palette-black: #222;
+
+  --text-primary: #353c49;
+  --text-secondary: #6d7582;
+  --text-subtitle: #8d94a0;
+}
+
 *,
 *::before,
 *::after {
@@ -37,6 +52,7 @@ body {
   text-rendering: optimizeSpeed;
   font: 14px/1.5 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
     'Malgun Gothic', '맑은 고딕', sans-serif;
+  color: var(--text-primary);
 
   &[data-scroll-locked] {
     overflow: hidden;
