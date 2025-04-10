@@ -57,13 +57,13 @@ function App() {
     submitSearchQuery(value);
   };
 
-  const resetBasicSearch = () => {
+  const resetSearchQuery = () => {
     setValue('');
     setSearchQuery('');
   };
 
   const applyDetailSearch = (query: string, target: BookSearchTarget) => {
-    resetBasicSearch();
+    resetSearchQuery();
     setSearchDetailQuery(query);
     setSearchTarget(target);
   };
