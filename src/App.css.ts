@@ -77,3 +77,7 @@ globalStyle('.text-secondary', {
 globalStyle('.text-subtitle', {
   color: 'var(--text-subtitle)'
 });
+
+globalStyle('.text-blue', {
+  color: 'var(--palette-primary)'
+});

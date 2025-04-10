@@ -80,7 +80,8 @@ export default function BookSearch() {
   };
 
   return (
-    <div>
+    <section>
+      <h2 className={`title2 ${styles.heading}`}>도서 검색</h2>
       <div className={styles.wrapper}>
         <div className={styles.searchGroup}>
           <SearchBar
@@ -101,13 +102,19 @@ export default function BookSearch() {
         <DetailSearch onSubmit={applyDetailSearch} />
       </div>
 
-      <div>
+      <div className={styles.searchResult}>
+        <header className={styles.searchResultHeader}>
+          <div>도서 검색 결과</div>
+          <div>
+            총 <span className="text-blue">0</span>건
+          </div>
+        </header>
         {data?.pages.length ? (
           <BookList query={queryText} params={params} />
         ) : (
           <p>검색된 결과가 없습니다.</p>
         )}
       </div>
-    </div>
+    </section>
   );
 }
