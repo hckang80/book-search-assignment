@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { useInfiniteBookSearch } from '../hooks/useInfiniteBookSearch';
+import { useInfiniteBookSearch } from '../hooks';
 import { Accordion } from 'radix-ui';
 import type { BookDocument, BookSearchParams } from '../types';
+import { InfiniteScrollTrigger } from './shared';
 
 interface BookListProps {
   query: string;
@@ -67,7 +68,12 @@ const BookList = ({ query, params }: BookListProps) => {
           </div>
         ))}
       </Accordion.Root>
-      <div ref={observerRef} style={{ height: 50 }} />
+      <InfiniteScrollTrigger
+        onIntersect={() => {
+          fetchNextPage();
+        }}
+        enabled={hasNextPage && !isFetchingNextPage}
+      />
       {isFetchingNextPage && <p>로딩 중...</p>}
     </>
   );

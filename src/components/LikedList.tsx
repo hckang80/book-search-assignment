@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useInfiniteLikedBooks } from '../hooks';
 import type { BookDocument } from '../types';
+import { InfiniteScrollTrigger } from './shared';
 
 const LOCAL_STORAGE_KEY = 'liked_books';
 
@@ -44,7 +45,12 @@ const BookList = () => {
           ))}
         </ul>
       ))}
-      <div ref={observerRef} style={{ height: 50 }} />
+      <InfiniteScrollTrigger
+        onIntersect={() => {
+          fetchNextPage();
+        }}
+        enabled={hasNextPage && !isFetchingNextPage}
+      />
       {isFetchingNextPage && <p>로딩 중...</p>}
     </>
   );
