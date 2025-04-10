@@ -19,6 +19,7 @@ function App() {
   const [searchDetailQuery, setSearchDetailQuery] = useState('');
   const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
+  const [showHistory, setShowHistory] = useState(false);
 
   const params = {
     query: searchDetailQuery || searchQuery,
@@ -77,6 +78,7 @@ function App() {
             <TextField.Root
               value={value}
               onChange={handleInputChange}
+              onFocus={() => setShowHistory(true)}
               placeholder="검색어를 입력하세요"
             >
               <TextField.Slot>
@@ -84,6 +86,17 @@ function App() {
               </TextField.Slot>
             </TextField.Root>
           </form>
+
+          {showHistory && history.length > 0 && (
+            <ul>
+              {history.map((item) => (
+                <li key={item}>
+                  <button>{item}</button>
+                  <button>삭제</button>
+                </li>
+              ))}
+            </ul>
+          )}
 
           <DetailSearch onSubmit={handleDetailSearch} />
         </div>
