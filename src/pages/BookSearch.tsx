@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { BookList, DetailSearch, SearchHistory } from '../components';
+import { BookList, DetailSearch, SearchBar, SearchHistory } from '../components';
 import { bookSearchTargets, type BookSearchTarget } from '../types';
-import { TextField } from '@radix-ui/themes';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 
@@ -83,18 +81,12 @@ export default function BookSearch() {
   return (
     <div>
       <div>
-        <form onSubmit={handleFormSubmit}>
-          <TextField.Root
-            value={value}
-            onChange={handleInputChange}
-            onFocus={() => setShowHistory(true)}
-            placeholder="검색어를 입력하세요"
-          >
-            <TextField.Slot>
-              <MagnifyingGlassIcon height="16" width="16" />
-            </TextField.Slot>
-          </TextField.Root>
-        </form>
+        <SearchBar
+          value={value}
+          onChange={handleInputChange}
+          onSubmit={handleFormSubmit}
+          onFocus={() => setShowHistory(true)}
+        />
 
         <SearchHistory
           visible={showHistory}
