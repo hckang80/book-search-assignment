@@ -159,3 +159,7 @@ dialog {
   width: 1px;
   white-space: nowrap;
 }
+
+.radix-themes:where([data-is-root-theme='true']) {
+  min-height: auto !important;
+}

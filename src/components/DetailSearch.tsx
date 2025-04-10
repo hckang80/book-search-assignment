@@ -1,6 +1,7 @@
 import { useState, memo } from 'react';
-import { Button, Popover, Select } from '@radix-ui/themes';
+import { Button, Popover, Select, Theme } from '@radix-ui/themes';
 import { type BookSearchTarget, bookSearchTargets } from '../types';
+import * as styles from './DetailSearch.css';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
@@ -19,17 +20,19 @@ const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
   };
 
   return (
-    <>
+    <Theme>
       <Popover.Root open={open} onOpenChange={handleOpenChange}>
         <Popover.Trigger>
-          <Button>상세검색</Button>
+          <Button className={styles.opener} variant="outline" color="gray">
+            상세검색
+          </Button>
         </Popover.Trigger>
 
         <Popover.Content maxWidth="450px">
           <SearchForm onSubmit={handleFormSubmit} />
         </Popover.Content>
       </Popover.Root>
-    </>
+    </Theme>
   );
 };
 
