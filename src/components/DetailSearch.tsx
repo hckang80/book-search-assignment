@@ -52,9 +52,11 @@ const SearchForm = memo(({ onSubmit }: SearchFormProps) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <TargetSelector target={target} onChange={setTarget} />
-      <QueryInput query={query} onChange={setQuery} />
-      <Button>검색하기</Button>
+      <div className={styles.inputGroup}>
+        <TargetSelector target={target} onChange={setTarget} />
+        <QueryInput query={query} onChange={setQuery} />
+      </div>
+      <Button className={styles.searchButton}>검색하기</Button>
     </form>
   );
 });
@@ -68,8 +70,8 @@ interface TargetSelectorProps {
 const TargetSelector = memo(({ target, onChange }: TargetSelectorProps) => {
   return (
     <Select.Root value={target} onValueChange={onChange}>
-      <Select.Trigger>{target}</Select.Trigger>
-      <Select.Content>
+      <Select.Trigger className={styles.targetSelect}>{target}</Select.Trigger>
+      <Select.Content className={styles.targetOption}>
         {bookSearchTargets.map((label) => (
           <Select.Item value={label} key={label}>
             {label}
@@ -91,7 +93,15 @@ const QueryInput = memo(({ query, onChange }: QueryInputProps) => {
     onChange(e.target.value);
   };
 
-  return <input type="text" value={query} onChange={handleChange} placeholder="검색어 입력" />;
+  return (
+    <input
+      className={`caption ${styles.queryInput}`}
+      type="text"
+      value={query}
+      onChange={handleChange}
+      placeholder="검색어 입력"
+    />
+  );
 });
 QueryInput.displayName = 'QueryInput';
 
