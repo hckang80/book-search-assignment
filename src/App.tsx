@@ -1,5 +1,6 @@
 import '@radix-ui/themes/styles.css';
-import * as styles from './App.css.ts';
+import './App.css.ts';
+import * as styles from './Layout.css.ts';
 import { Outlet } from 'react-router';
 
 const { wrapper, header, heading, nav, list, item, main } = styles;
