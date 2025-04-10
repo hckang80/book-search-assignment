@@ -1,6 +1,8 @@
 import { useState, memo } from 'react';
-import { Button, Popover, Select } from '@radix-ui/themes';
+import { Button, Popover, Select, Theme } from '@radix-ui/themes';
 import { type BookSearchTarget, bookSearchTargets } from '../types';
+import * as styles from './DetailSearch.css';
+import { X } from 'lucide-react';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
@@ -19,17 +21,24 @@ const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
   };
 
   return (
-    <>
+    <Theme>
       <Popover.Root open={open} onOpenChange={handleOpenChange}>
         <Popover.Trigger>
-          <Button>상세검색</Button>
+          <Button className={styles.opener} variant="outline" color="gray">
+            상세검색
+          </Button>
         </Popover.Trigger>
 
-        <Popover.Content maxWidth="450px">
+        <Popover.Content maxWidth="360px" className={styles.popoverContent}>
           <SearchForm onSubmit={handleFormSubmit} />
+          <Popover.Close>
+            <button className={styles.popoverCloseButton}>
+              <X size={20} color="#b1b8c0" />
+            </button>
+          </Popover.Close>
         </Popover.Content>
       </Popover.Root>
-    </>
+    </Theme>
   );
 };
 
@@ -49,9 +58,11 @@ const SearchForm = memo(({ onSubmit }: SearchFormProps) => {
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <TargetSelector target={target} onChange={setTarget} />
-      <QueryInput query={query} onChange={setQuery} />
-      <Button>검색하기</Button>
+      <div className={styles.inputGroup}>
+        <TargetSelector target={target} onChange={setTarget} />
+        <QueryInput query={query} onChange={setQuery} />
+      </div>
+      <Button className={styles.searchButton}>검색하기</Button>
     </form>
   );
 });
@@ -65,8 +76,8 @@ interface TargetSelectorProps {
 const TargetSelector = memo(({ target, onChange }: TargetSelectorProps) => {
   return (
     <Select.Root value={target} onValueChange={onChange}>
-      <Select.Trigger>{target}</Select.Trigger>
-      <Select.Content>
+      <Select.Trigger className={styles.targetSelect}>{target}</Select.Trigger>
+      <Select.Content className={styles.targetOption}>
         {bookSearchTargets.map((label) => (
           <Select.Item value={label} key={label}>
             {label}
@@ -88,7 +99,15 @@ const QueryInput = memo(({ query, onChange }: QueryInputProps) => {
     onChange(e.target.value);
   };
 
-  return <input type="text" value={query} onChange={handleChange} placeholder="검색어 입력" />;
+  return (
+    <input
+      className={`caption ${styles.queryInput}`}
+      type="text"
+      value={query}
+      onChange={handleChange}
+      placeholder="검색어 입력"
+    />
+  );
 });
 QueryInput.displayName = 'QueryInput';
 

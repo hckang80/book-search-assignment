@@ -3,6 +3,8 @@ import { BookList, DetailSearch, SearchBar, SearchHistory } from '../components'
 import { bookSearchTargets, type BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
+import * as styles from './BookSearch.css';
+import ICON_BOOK from '../assets/icon_book.svg';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -79,32 +81,44 @@ export default function BookSearch() {
   };
 
   return (
-    <div>
-      <div>
-        <SearchBar
-          value={value}
-          onChange={handleInputChange}
-          onSubmit={handleFormSubmit}
-          onFocus={() => setShowHistory(true)}
-        />
+    <section>
+      <h2 className={`title2 ${styles.heading}`}>도서 검색</h2>
+      <div className={styles.wrapper}>
+        <div className={styles.searchGroup}>
+          <SearchBar
+            value={value}
+            onChange={handleInputChange}
+            onSubmit={handleFormSubmit}
+            onFocus={() => setShowHistory(true)}
+          />
 
-        <SearchHistory
-          visible={showHistory}
-          history={history}
-          onSelect={handleHistorySelect}
-          onDelete={handleDeleteHistory}
-        />
+          <SearchHistory
+            visible={showHistory}
+            history={history}
+            onSelect={handleHistorySelect}
+            onDelete={handleDeleteHistory}
+          />
+        </div>
 
         <DetailSearch onSubmit={applyDetailSearch} />
       </div>
 
-      <div>
+      <div className={styles.searchResult}>
+        <header className={styles.searchResultHeader}>
+          <div>도서 검색 결과</div>
+          <div>
+            총 <span className="text-blue">0</span>건
+          </div>
+        </header>
         {data?.pages.length ? (
           <BookList query={queryText} params={params} />
         ) : (
-          <p>검색된 결과가 없습니다.</p>
+          <div className={styles.noData}>
+            <img className={styles.noDataIcon} src={ICON_BOOK} alt="" />
+            <p className={`text-secondary caption ${styles.noDataText}`}>검색된 결과가 없습니다.</p>
+          </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,9 +1,7 @@
 import '@radix-ui/themes/styles.css';
 import './App.css.ts';
-import * as styles from './Layout.css.ts';
+import { wrapper, header, heading, nav, list, item, main } from './Layout.css.ts';
 import { Outlet } from 'react-router';
-
-const { wrapper, header, heading, nav, list, item, main } = styles;
 
 function App() {
   return (

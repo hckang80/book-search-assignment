@@ -11,6 +11,8 @@
   --text-primary: #353c49;
   --text-secondary: #6d7582;
   --text-subtitle: #8d94a0;
+
+  --indigo-9: var(--palette-primary) !important;
 }
 
 *,
@@ -87,6 +89,8 @@ i {
 }
 
 button {
+  all: unset;
+
   box-sizing: border-box;
 
   &:focus-visible {
@@ -137,6 +141,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input::placeholder {
+  -webkit-text-fill-color: var(--text-subtitle);
+  font-weight: 500;
+}
+
 dialog {
   padding: 0;
   border: 0;
@@ -153,4 +162,11 @@ dialog {
   position: absolute;
   width: 1px;
   white-space: nowrap;
+}
+
+.rt-Button {
+  border-radius: 8px !important;
+}
+.radix-themes:where([data-is-root-theme='true']) {
+  min-height: auto !important;
 }
