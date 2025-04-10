@@ -6,6 +6,7 @@ import { bookSearchTargets, type BookSearchTarget } from './types';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { useInfiniteBookSearch } from './hooks';
+import { PAGE_SIZE } from './lib/constant';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -24,7 +25,7 @@ function App() {
   const params = {
     query: queryText,
     target: searchTarget,
-    size: 10
+    size: PAGE_SIZE
   };
 
   const { data } = useInfiniteBookSearch(queryText, params);
