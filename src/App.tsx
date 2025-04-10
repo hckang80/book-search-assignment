@@ -49,6 +49,7 @@ function App() {
 
     updateHistory(value);
     setSearchQuery(value);
+    setShowHistory(false);
   };
 
   const handleDetailSearch = (query: string, target: typeof searchTarget) => {
@@ -91,6 +92,7 @@ function App() {
               value={value}
               onChange={handleInputChange}
               onFocus={() => setShowHistory(true)}
+              onBlur={() => setShowHistory(false)}
               placeholder="검색어를 입력하세요"
             >
               <TextField.Slot>
