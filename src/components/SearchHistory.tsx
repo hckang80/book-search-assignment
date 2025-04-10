@@ -1,3 +1,6 @@
+import * as styles from './SearchHistory.css';
+import { X } from 'lucide-react';
+
 interface SearchHistoryProps {
   visible: boolean;
   history: string[];
@@ -9,11 +12,15 @@ const SearchHistory = ({ visible, history, onSelect, onDelete }: SearchHistoryPr
   if (!visible || history.length === 0) return;
 
   return (
-    <ul>
+    <ul className={`palette-light-gray ${styles.list}`}>
       {history.map((item) => (
-        <li key={item}>
-          <button onClick={() => onSelect(item)}>{item}</button>
-          <button onClick={() => onDelete(item)}>삭제</button>
+        <li className={`text-subtitle caption ${styles.item}`} key={item}>
+          <button className={styles.label} onClick={() => onSelect(item)}>
+            {item}
+          </button>
+          <button className={styles.deleteButton} onClick={() => onDelete(item)}>
+            <X color="var(--palette-black)" />
+          </button>
         </li>
       ))}
     </ul>
