@@ -55,7 +55,19 @@ const BookList = ({ query, params }: BookListProps) => {
           <div key={pageIndex} style={{ display: 'contents' }}>
             {page.documents.map((book) => (
               <Accordion.Item key={book.title + book.isbn} value={book.title + book.isbn}>
-                <Accordion.Trigger>상세보기</Accordion.Trigger>
+                <div>
+                  <div>
+                    <img
+                      src={book.thumbnail}
+                      alt=""
+                      width="120"
+                      height="174"
+                      loading={pageIndex ? 'lazy' : 'eager'}
+                      decoding={pageIndex ? 'async' : 'sync'}
+                    />
+                  </div>
+                  <Accordion.Trigger>상세보기</Accordion.Trigger>
+                </div>
                 <Accordion.Content>
                   <button onClick={() => toggleLikedBook(book)}>
                     <img src={book.thumbnail} alt={book.title} />
