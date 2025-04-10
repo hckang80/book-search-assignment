@@ -13,10 +13,10 @@ const BookList = ({ query, params }: BookListProps) => {
     params
   );
 
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!loadMoreRef.current || !hasNextPage) return;
+    if (!observerRef.current || !hasNextPage) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -27,7 +27,7 @@ const BookList = ({ query, params }: BookListProps) => {
       { threshold: 1.0 }
     );
 
-    observer.observe(loadMoreRef.current);
+    observer.observe(observerRef.current);
 
     return () => {
       observer.disconnect();
@@ -43,7 +43,7 @@ const BookList = ({ query, params }: BookListProps) => {
           ))}
         </div>
       ))}
-      <div ref={loadMoreRef} style={{ height: 50 }} />
+      <div ref={observerRef} style={{ height: 50 }} />
       {isFetchingNextPage && <p>로딩 중...</p>}
     </>
   );
