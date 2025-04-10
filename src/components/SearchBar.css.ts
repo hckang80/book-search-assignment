@@ -1,7 +1,5 @@
 import { style } from '@vanilla-extract/css';
 
-export const form = style({});
-
 export const wrapper = style({
   gap: 11,
   height: 50,
@@ -9,4 +7,8 @@ export const wrapper = style({
   border: 0,
   boxShadow: 'none',
   borderRadius: 100
+});
+
+export const icon = style({
+  scale: 0.8
 });
