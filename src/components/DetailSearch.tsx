@@ -28,7 +28,7 @@ const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
           </Button>
         </Popover.Trigger>
 
-        <Popover.Content maxWidth="450px">
+        <Popover.Content maxWidth="360px" className={styles.popoverContent}>
           <SearchForm onSubmit={handleFormSubmit} />
         </Popover.Content>
       </Popover.Root>

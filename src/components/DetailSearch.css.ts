@@ -5,6 +5,12 @@ export const opener = style({
   marginTop: 9
 });
 
+export const popoverContent = style({
+  padding: '36px 24px',
+  boxShadow: 'none',
+  WebkitBoxShadow: '0 4px 14px 6px #97979726'
+});
+
 export const inputGroup = style({
   display: 'flex',
   gap: 4,
@@ -29,6 +35,7 @@ export const targetOption = style({
 });
 
 export const queryInput = style({
+  width: 208,
   paddingInline: 9.5,
   fontSize: 14,
   border: 0,
