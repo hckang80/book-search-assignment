@@ -1,12 +1,11 @@
 import '@radix-ui/themes/styles.css';
 import './App.css';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { fetchBookSearch } from './api';
-import { DetailSearch, SearchHistory } from './components';
+import { BookList, DetailSearch, SearchHistory } from './components';
 import { bookSearchTargets, type BookSearchTarget } from './types';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { useInfiniteBookSearch } from './hooks';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -21,17 +20,14 @@ function App() {
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
 
+  const queryText = (searchDetailQuery || searchQuery).trim();
   const params = {
-    query: searchDetailQuery || searchQuery,
-    target: searchTarget
+    query: queryText,
+    target: searchTarget,
+    size: 10
   };
 
-  const { data } = useQuery({
-    queryKey: ['search', params],
-    queryFn: () => fetchBookSearch(params),
-    enabled: (searchQuery || searchDetailQuery).trim().length > 0,
-    staleTime: 1000 * 60 * 5
-  });
+  const { data } = useInfiniteBookSearch(queryText, params);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
@@ -119,10 +115,10 @@ function App() {
         </div>
 
         <div>
-          {data?.meta.total_count ? (
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+          {data?.pages.length ? (
+            <BookList query={queryText} params={params} />
           ) : (
-            '검색된 결과가 없습니다.'
+            <p>검색된 결과가 없습니다.</p>
           )}
         </div>
       </main>
