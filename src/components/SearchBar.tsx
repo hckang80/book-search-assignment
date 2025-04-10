@@ -1,5 +1,6 @@
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { wrapper } from './SearchBar.css.ts';
 
 interface SearchBarProps {
   value: string;
@@ -16,9 +17,10 @@ const SearchBar = ({ value, onChange, onSubmit, onFocus }: SearchBarProps) => {
         onChange={onChange}
         onFocus={onFocus}
         placeholder="검색어를 입력하세요"
+        className={`palette-light-gray caption ${wrapper}`}
       >
         <TextField.Slot>
-          <MagnifyingGlassIcon height="16" width="16" />
+          <MagnifyingGlassIcon height="30" width="30" color="var(--text-primary)" />
         </TextField.Slot>
       </TextField.Root>
     </form>

@@ -137,6 +137,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input::placeholder {
+  -webkit-text-fill-color: var(--text-subtitle);
+  font-weight: 500;
+}
+
 dialog {
   padding: 0;
   border: 0;
