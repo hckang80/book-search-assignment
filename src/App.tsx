@@ -1,12 +1,11 @@
 import '@radix-ui/themes/styles.css';
 import './App.css';
-import { useState, useRef, useEffect } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchBookSearch } from './api';
-import { DetailSearch, SearchHistory } from './components';
+import { useState } from 'react';
+import { BookList, DetailSearch, SearchHistory } from './components';
 import { bookSearchTargets, type BookSearchTarget } from './types';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { useInfiniteBookSearch } from './hooks';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -21,8 +20,6 @@ function App() {
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
 
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-
   const queryText = (searchDetailQuery || searchQuery).trim();
   const params = {
     query: queryText,
@@ -30,36 +27,7 @@ function App() {
     size: 10
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ['search', params],
-    queryFn: ({ pageParam }) => fetchBookSearch({ ...params, page: pageParam }),
-    getNextPageParam: (lastPage, allPages) => {
-      const { is_end: isListEnd } = lastPage.meta;
-      return isListEnd ? undefined : allPages.length + 1;
-    },
-    initialPageParam: 1,
-    enabled: queryText.length > 0,
-    staleTime: 1000 * 60 * 5
-  });
-
-  useEffect(() => {
-    if (!loadMoreRef.current || !hasNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    observer.observe(loadMoreRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+  const { data } = useInfiniteBookSearch(queryText, params);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
@@ -148,17 +116,7 @@ function App() {
 
         <div>
           {data?.pages.length ? (
-            <>
-              {data.pages.map((page, pageIndex) => (
-                <div key={pageIndex}>
-                  {page.documents.map((book) => (
-                    <div key={book.isbn}>{book.title}</div>
-                  ))}
-                </div>
-              ))}
-              <div ref={loadMoreRef} style={{ height: 50 }} />
-              {isFetchingNextPage && <p>로딩 중...</p>}
-            </>
+            <BookList query={queryText} params={params} />
           ) : (
             <p>검색된 결과가 없습니다.</p>
           )}
