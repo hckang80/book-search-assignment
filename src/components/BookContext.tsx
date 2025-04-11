@@ -3,6 +3,7 @@ import { Accordion } from 'radix-ui';
 import * as styles from './BookContext.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
+import { isSale, toReadableNumber } from '../lib/utils';
 
 const LOCAL_STORAGE_KEY = 'liked_books';
 
@@ -49,12 +50,16 @@ const BookContext = ({ book }: { book: BookDocument }) => {
           <div className={styles.prices}>
             <span className={styles.price}>
               <em className={styles.priceLabel}>원가</em>
-              <span className={styles.priceValue}>{book.price}</span>
+              <span className={isSale(book.sale_price) ? styles.priceSaleValue : styles.priceValue}>
+                {toReadableNumber(book.price)}원
+              </span>
             </span>
-            <span className={styles.price}>
-              <em className={styles.priceLabel}>할인가</em>
-              <span className={styles.priceValue}>{book.sale_price}</span>
-            </span>
+            {isSale(book.sale_price) && (
+              <span className={styles.price}>
+                <em className={styles.priceLabel}>할인가</em>
+                <span className={styles.priceValue}>{toReadableNumber(book.sale_price)}원</span>
+              </span>
+            )}
           </div>
           <Button className={styles.cta} size="4" asChild>
             <a href={book.url} target="_blank" rel="noopener noreferrer">
