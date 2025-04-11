@@ -1,15 +1,16 @@
 import { useEffect, useRef } from 'react';
 import { useInfiniteBookSearch } from '../hooks';
 import { Accordion } from 'radix-ui';
-import type { BookDocument, BookSearchParams } from '../types';
+import type { BookSearchParams } from '../types';
 import { InfiniteScrollTrigger } from './shared';
+import { Theme } from '@radix-ui/themes';
+import * as styles from './BookList.css';
+import { BookContext, BookItem } from '.';
 
 interface BookListProps {
   query: string;
   params: BookSearchParams;
 }
-
-const LOCAL_STORAGE_KEY = 'liked_books';
 
 const BookList = ({ query, params }: BookListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBookSearch(
@@ -38,35 +39,25 @@ const BookList = ({ query, params }: BookListProps) => {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const toggleLikedBook = (book: BookDocument) => {
-    const saved: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-    const exists = saved.find((item) => item.isbn === book.isbn && item.title === book.title);
-    const updated = exists
-      ? saved.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
-      : [...saved, book];
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  };
-
   return (
     <>
       <Accordion.Root type="single" collapsible>
-        {data?.pages.map((page, pageIndex) => (
-          <div key={pageIndex} style={{ display: 'contents' }}>
-            {page.documents.map((book) => (
-              <Accordion.Item key={book.title + book.isbn} value={book.title + book.isbn}>
-                <Accordion.Trigger>상세보기</Accordion.Trigger>
-                <Accordion.Content>
-                  <button onClick={() => toggleLikedBook(book)}>
-                    <img src={book.thumbnail} alt={book.title} />
-                  </button>
-                  {book.title}
-                  <Accordion.Trigger>상세보기</Accordion.Trigger>
-                </Accordion.Content>
-              </Accordion.Item>
-            ))}
-          </div>
-        ))}
+        <Theme>
+          {data?.pages.map((page, pageIndex) => (
+            <div key={pageIndex} style={{ display: 'contents' }}>
+              {page.documents.map((book) => (
+                <Accordion.Item
+                  className={styles.item}
+                  key={book.title + book.isbn}
+                  value={book.title + book.isbn}
+                >
+                  <BookItem book={book} pageIndex={pageIndex} />
+                  <BookContext book={book} />
+                </Accordion.Item>
+              ))}
+            </div>
+          ))}
+        </Theme>
       </Accordion.Root>
       <InfiniteScrollTrigger
         onIntersect={() => {
