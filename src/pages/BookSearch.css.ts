@@ -24,14 +24,3 @@ export const searchResultHeader = style({
   fontWeight: 500,
   fontSize: 16
 });
-
-export const noData = style({
-  marginTop: 120,
-  textAlign: 'center'
-});
-
-export const noDataIcon = style({
-  marginBottom: 24
-});
-
-export const noDataText = style({});
