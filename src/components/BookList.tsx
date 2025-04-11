@@ -5,6 +5,7 @@ import type { BookDocument, BookSearchParams } from '../types';
 import { InfiniteScrollTrigger } from './shared';
 import { Button, Theme } from '@radix-ui/themes';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import * as styles from './BookList.css';
 
 interface BookListProps {
   query: string;
@@ -57,9 +58,13 @@ const BookList = ({ query, params }: BookListProps) => {
           {data?.pages.map((page, pageIndex) => (
             <div key={pageIndex} style={{ display: 'contents' }}>
               {page.documents.map((book) => (
-                <Accordion.Item key={book.title + book.isbn} value={book.title + book.isbn}>
-                  <div>
-                    <div>
+                <Accordion.Item
+                  className={styles.item}
+                  key={book.title + book.isbn}
+                  value={book.title + book.isbn}
+                >
+                  <div className={styles.opener}>
+                    <div className={styles.thumbnail}>
                       <img
                         src={book.thumbnail}
                         alt=""
@@ -69,19 +74,21 @@ const BookList = ({ query, params }: BookListProps) => {
                         decoding={pageIndex ? 'async' : 'sync'}
                       />
                     </div>
-                    <div>
-                      <span>{book.title}</span>
-                      <span>{book.authors}</span>
+                    <div className={styles.title}>
+                      <span className="title3">{book.title}</span>
+                      <span className="body2 text-secondary">{book.authors}</span>
                     </div>
-                    <div>{book.sale_price}</div>
-                    <div>
-                      <Button size="4" asChild>
+                    <div className={styles.price}>
+                      <span className="title3">{book.sale_price}</span>
+                    </div>
+                    <div className={styles.buttons}>
+                      <Button className={styles.button} size="4" asChild>
                         <a href={book.url} target="_blank" rel="noopener noreferrer">
                           구매하기
                         </a>
                       </Button>
                       <Accordion.Trigger asChild>
-                        <Button size="4" color="gray" variant="soft">
+                        <Button className={styles.button} size="4" color="gray" variant="soft">
                           상세보기
                           <ChevronDown size={18} />
                         </Button>

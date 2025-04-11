@@ -164,9 +164,17 @@ dialog {
   white-space: nowrap;
 }
 
-.rt-Button {
-  border-radius: 8px !important;
-}
-.radix-themes:where([data-is-root-theme='true']) {
-  min-height: auto !important;
+#root {
+  .rt-Button {
+    border-radius: 8px;
+    gap: 5px;
+
+    &.rt-r-size-4 {
+      font-size: 16px;
+    }
+  }
+
+  .radix-themes:where([data-is-root-theme='true']) {
+    min-height: auto;
+  }
 }
