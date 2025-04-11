@@ -26,7 +26,8 @@ export default function BookSearch() {
     size: PAGE_SIZE
   };
 
-  const { data } = useInfiniteBookSearch(queryText, params);
+  const infiniteQuery = useInfiniteBookSearch(queryText, params);
+  const { data } = infiniteQuery;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
@@ -111,7 +112,7 @@ export default function BookSearch() {
             <span className="text-blue">{toReadableNumber(data?.pages[0].meta.total_count)}</span>건
           </div>
         </header>
-        {data?.pages.length ? <BookList query={queryText} params={params} /> : <NoData />}
+        {data?.pages.length ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
       </div>
     </section>
   );
