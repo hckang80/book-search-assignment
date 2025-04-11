@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../components';
-import { bookSearchTargets, type BookSearchTarget } from '../types';
+import type { BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
@@ -20,16 +20,21 @@ export default function BookSearch() {
   const [showHistory, setShowHistory] = useState(false);
 
   const searchQuery = (searchParams.get('query') || '').trim();
-  const searchTarget = searchParams.get('target') || bookSearchTargets[0];
+  const searchTarget = searchParams.get('target') as BookSearchTarget | null;
 
   useEffect(() => {
     searchParams.set('query', searchQuery);
-    searchParams.set('target', searchTarget);
+
+    if (searchTarget) {
+      searchParams.set('target', searchTarget);
+    } else {
+      searchParams.delete('target');
+    }
   }, [searchParams, searchQuery, searchTarget]);
 
   const params = {
     query: searchQuery,
-    target: searchTarget as BookSearchTarget,
+    target: searchTarget,
     size: PAGE_SIZE
   };
 
@@ -51,7 +56,7 @@ export default function BookSearch() {
   const submitSearchQuery = (query: string) => {
     if (!query) return;
     updateHistory(query);
-    setSearchParams({ query, target: bookSearchTargets[0] });
+    setSearchParams({ query });
     setShowHistory(false);
   };
 
