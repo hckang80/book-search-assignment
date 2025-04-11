@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../components';
 import { bookSearchTargets, type BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
 import { toReadableNumber } from '../lib/utils';
+import { useSearchParams } from 'react-router';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -12,12 +13,26 @@ const MAX_HISTORY_LENGTH = 8;
 export default function BookSearch() {
   const storedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const initialQuery = searchParams.get('query') ?? '';
+  const initialTarget = searchParams.get('target') ?? bookSearchTargets[0];
+
   const [value, setValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [searchDetailQuery, setSearchDetailQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
+  const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(
+    initialTarget as BookSearchTarget
+  );
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
+
+  useEffect(() => {
+    const query = searchParams.get('query') || '';
+    const target = searchParams.get('target') || bookSearchTargets[0];
+    setSearchQuery(query);
+    setSearchTarget(target as BookSearchTarget);
+  }, [searchParams]);
 
   const queryText = (searchDetailQuery || searchQuery).trim();
   const params = {
@@ -45,6 +60,7 @@ export default function BookSearch() {
     if (!query) return;
     updateHistory(query);
     setSearchQuery(query);
+    setSearchParams({ query, target: searchTarget });
     setShowHistory(false);
     resetDetailSearchQuery();
   };
@@ -68,6 +84,7 @@ export default function BookSearch() {
     resetSearchQuery();
     setSearchDetailQuery(query);
     setSearchTarget(target);
+    setSearchParams({ query, target });
   };
 
   const handleHistorySelect = (query: string) => {
