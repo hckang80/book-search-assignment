@@ -82,6 +82,14 @@ export const priceValue = style({
   fontSize: 18
 });
 
+export const priceSaleValue = style([
+  priceValue,
+  {
+    fontWeight: 350,
+    textDecoration: 'line-through'
+  }
+]);
+
 export const cta = style({
   width: '100%'
 });

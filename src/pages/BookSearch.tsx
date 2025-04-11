@@ -5,6 +5,7 @@ import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
 import ICON_BOOK from '../assets/icon_book.svg';
+import { toReadableNumber } from '../lib/utils';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -107,7 +108,8 @@ export default function BookSearch() {
         <header className={styles.searchResultHeader}>
           <div>도서 검색 결과</div>
           <div>
-            총 <span className="text-blue">{data?.pages[0].meta.total_count || 0}</span>건
+            총{' '}
+            <span className="text-blue">{toReadableNumber(data?.pages[0].meta.total_count)}</span>건
           </div>
         </header>
         {data?.pages.length ? (

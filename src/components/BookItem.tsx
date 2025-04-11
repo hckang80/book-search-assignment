@@ -3,6 +3,7 @@ import { Button } from '@radix-ui/themes';
 import { ChevronDown } from 'lucide-react';
 import * as styles from './BookItem.css';
 import { Accordion } from 'radix-ui';
+import { isSale, toReadableNumber } from '../lib/utils';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   return (
@@ -22,7 +23,9 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
         <span className="body2 text-secondary">{book.authors}</span>
       </div>
       <div className={styles.price}>
-        <span className="title3">{book.sale_price}</span>
+        <span className="title3">
+          {toReadableNumber(isSale(book.sale_price) ? book.sale_price : book.price)}원
+        </span>
       </div>
       <div className={styles.buttons}>
         <Button size="4" asChild>
