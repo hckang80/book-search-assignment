@@ -27,7 +27,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
         <div className={styles.detail}>
           <div className={styles.title}>
             <span className="title3">{book.title}</span>
-            <span className="body2 text-subtitle">{book.authors}</span>
+            <span className="body2 text-subtitle">{book.authors.join(', ')}</span>
           </div>
           <dl className={styles.summary}>
             <dt className={styles.about}>책 소개</dt>

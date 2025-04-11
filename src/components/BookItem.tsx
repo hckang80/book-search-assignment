@@ -21,7 +21,7 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
       </div>
       <div className={styles.title}>
         <span className="title3">{book.title}</span>
-        <span className="body2 text-secondary">{book.authors}</span>
+        <span className="body2 text-secondary">{book.authors.join(', ')}</span>
       </div>
       <div className={styles.price}>
         <span className="title3">

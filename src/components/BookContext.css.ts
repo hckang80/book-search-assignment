@@ -28,7 +28,7 @@ export const detail = style({
 
 export const title = style({
   display: 'flex',
-  flexWrap: 'wrap',
+  WebkitFlexWrap: 'wrap',
   alignItems: 'center',
   gap: 16,
   marginBottom: 16,
