@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { BookList, DetailSearch, SearchBar, SearchHistory } from '../components';
+import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../components';
 import { bookSearchTargets, type BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
-import ICON_BOOK from '../assets/icon_book.svg';
 import { toReadableNumber } from '../lib/utils';
 
 const LOCAL_STORAGE_KEY = 'search_history';
@@ -27,7 +26,8 @@ export default function BookSearch() {
     size: PAGE_SIZE
   };
 
-  const { data } = useInfiniteBookSearch(queryText, params);
+  const infiniteQuery = useInfiniteBookSearch(queryText, params);
+  const { data } = infiniteQuery;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
@@ -112,14 +112,7 @@ export default function BookSearch() {
             <span className="text-blue">{toReadableNumber(data?.pages[0].meta.total_count)}</span>건
           </div>
         </header>
-        {data?.pages.length ? (
-          <BookList query={queryText} params={params} />
-        ) : (
-          <div className={styles.noData}>
-            <img className={styles.noDataIcon} src={ICON_BOOK} alt="" />
-            <p className={`text-secondary caption ${styles.noDataText}`}>검색된 결과가 없습니다.</p>
-          </div>
-        )}
+        {data?.pages.length ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
       </div>
     </section>
   );

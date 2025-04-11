@@ -4,19 +4,10 @@ import * as styles from './BookContext.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 import { isSale, toReadableNumber } from '../lib/utils';
-
-const LOCAL_STORAGE_KEY = 'liked_books';
+import { likedBooksStore } from '../store';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
-  const toggleLikedBook = (book: BookDocument) => {
-    const saved: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-    const exists = saved.find((item) => item.isbn === book.isbn && item.title === book.title);
-    const updated = exists
-      ? saved.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
-      : [...saved, book];
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  };
+  const { toggle, isLiked } = likedBooksStore();
 
   return (
     <Accordion.Content>
@@ -24,9 +15,12 @@ const BookContext = ({ book }: { book: BookDocument }) => {
         <div className={styles.thumbnail}>
           <span className={styles.image}>
             <img src={book.thumbnail} alt={book.title} width="210" height="305" />
-            <button className={styles.linkedButton} onClick={() => toggleLikedBook(book)}>
-              <Heart color="var(--palette-gray)" />
-              {/* --palette-red */}
+            <button className={styles.linkedButton} onClick={() => toggle(book)}>
+              {isLiked(book) ? (
+                <Heart color="var(--palette-red)" fill="var(--palette-red)" />
+              ) : (
+                <Heart color="var(--palette-gray)" />
+              )}
             </button>
           </span>
         </div>

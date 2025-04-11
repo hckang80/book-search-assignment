@@ -1,43 +1,17 @@
-import { useEffect, useRef } from 'react';
-import { useInfiniteBookSearch } from '../hooks';
-import { Accordion } from 'radix-ui';
-import type { BookSearchParams } from '../types';
+import type { BookInstance } from '../types';
 import { InfiniteScrollTrigger } from './shared';
-import { Theme } from '@radix-ui/themes';
 import * as styles from './BookList.css';
 import { BookContext, BookItem } from '.';
+import { Accordion } from 'radix-ui';
+import { Theme } from '@radix-ui/themes';
+import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 
 interface BookListProps {
-  query: string;
-  params: BookSearchParams;
+  infiniteQuery: UseInfiniteQueryResult<InfiniteData<BookInstance, unknown>, Error>;
 }
 
-const BookList = ({ query, params }: BookListProps) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBookSearch(
-    query,
-    params
-  );
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!observerRef.current || !hasNextPage || isFetchingNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    observer.observe(observerRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+const BookList = ({ infiniteQuery }: BookListProps) => {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = infiniteQuery;
 
   return (
     <>
