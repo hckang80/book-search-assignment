@@ -1,6 +1,6 @@
 import '@radix-ui/themes/styles.css';
 import './App.css.ts';
-import { wrapper, header, heading, nav, list, item, main, linkActive } from './Layout.css.ts';
+import * as styles from './Layout.css.ts';
 import { Link, Outlet, useLocation } from 'react-router';
 
 function App() {
@@ -12,18 +12,18 @@ function App() {
   ];
 
   return (
-    <div className={wrapper}>
-      <header className={header}>
-        <h1 className={`title1 ${heading}`}>certicos books</h1>
-        <nav className={nav}>
-          <ul className={`body1 ${list}`}>
-            {navigation.map((nav) => (
-              <li key={nav.path} className={item}>
+    <div className={styles.wrapper}>
+      <header className={styles.header}>
+        <h1 className={`title1 ${styles.heading}`}>certicos books</h1>
+        <nav className={styles.nav}>
+          <ul className={`body1 ${styles.list}`}>
+            {navigation.map(({ path, label }) => (
+              <li key={path} className={styles.item}>
                 <Link
-                  to={nav.path}
-                  className={location.pathname.startsWith(nav.path) ? linkActive : ''}
+                  to={path}
+                  className={location.pathname.startsWith(path) ? styles.linkActive : ''}
                 >
-                  {nav.label}
+                  {label}
                 </Link>
               </li>
             ))}
@@ -31,7 +31,7 @@ function App() {
         </nav>
       </header>
 
-      <main className={main}>
+      <main className={styles.main}>
         <Outlet />
       </main>
     </div>
