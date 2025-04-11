@@ -1,18 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { useInfiniteBookSearch } from '../hooks';
 import { Accordion } from 'radix-ui';
-import type { BookDocument, BookSearchParams } from '../types';
+import type { BookSearchParams } from '../types';
 import { InfiniteScrollTrigger } from './shared';
 import { Button, Theme } from '@radix-ui/themes';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import * as styles from './BookList.css';
+import { BookContext } from '.';
 
 interface BookListProps {
   query: string;
   params: BookSearchParams;
 }
-
-const LOCAL_STORAGE_KEY = 'liked_books';
 
 const BookList = ({ query, params }: BookListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteBookSearch(
@@ -40,16 +39,6 @@ const BookList = ({ query, params }: BookListProps) => {
       observer.disconnect();
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  const toggleLikedBook = (book: BookDocument) => {
-    const saved: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-    const exists = saved.find((item) => item.isbn === book.isbn && item.title === book.title);
-    const updated = exists
-      ? saved.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
-      : [...saved, book];
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  };
 
   return (
     <>
@@ -95,40 +84,7 @@ const BookList = ({ query, params }: BookListProps) => {
                       </Accordion.Trigger>
                     </div>
                   </div>
-                  <Accordion.Content>
-                    <div>
-                      <button onClick={() => toggleLikedBook(book)}>
-                        <img src={book.thumbnail} alt={book.title} />
-                      </button>
-                    </div>
-                    <div>
-                      <div>
-                        <span>{book.title}</span>
-                        <span>{book.authors}</span>
-                      </div>
-                      <dl>
-                        <dt>책 소개</dt>
-                        <dd>{book.contents}</dd>
-                      </dl>
-                    </div>
-                    <div>
-                      <Accordion.Trigger asChild>
-                        <Button size="4" color="gray" variant="soft">
-                          상세보기
-                          <ChevronUp size={18} />
-                        </Button>
-                      </Accordion.Trigger>
-                      <div>
-                        <span>{book.price}</span>
-                        <span>{book.sale_price}</span>
-                      </div>
-                      <Button size="4" asChild>
-                        <a href={book.url} target="_blank" rel="noopener noreferrer">
-                          구매하기
-                        </a>
-                      </Button>
-                    </div>
-                  </Accordion.Content>
+                  <BookContext book={book} />
                 </Accordion.Item>
               ))}
             </div>
