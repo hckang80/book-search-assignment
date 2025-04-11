@@ -1,6 +1,7 @@
 import type { BookDocument } from '../types';
 import { Accordion } from 'radix-ui';
-import { ChevronUp } from 'lucide-react';
+import * as styles from './BookContext.css';
+import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 
 const LOCAL_STORAGE_KEY = 'liked_books';
@@ -18,37 +19,49 @@ const BookContext = ({ book }: { book: BookDocument }) => {
 
   return (
     <Accordion.Content>
-      <div>
-        <button onClick={() => toggleLikedBook(book)}>
-          <img src={book.thumbnail} alt={book.title} />
-        </button>
-      </div>
-      <div>
-        <div>
-          <span>{book.title}</span>
-          <span>{book.authors}</span>
+      <div className={styles.context}>
+        <div className={styles.thumbnail}>
+          <span className={styles.image}>
+            <img src={book.thumbnail} alt={book.title} width="210" height="305" />
+            <button className={styles.linkedButton} onClick={() => toggleLikedBook(book)}>
+              <Heart color="var(--palette-gray)" />
+              {/* --palette-red */}
+            </button>
+          </span>
         </div>
-        <dl>
-          <dt>책 소개</dt>
-          <dd>{book.contents}</dd>
-        </dl>
-      </div>
-      <div>
-        <Accordion.Trigger asChild>
-          <Button size="4" color="gray" variant="soft">
-            상세보기
-            <ChevronUp size={18} />
+        <div className={styles.detail}>
+          <div className={styles.title}>
+            <span className="title3">{book.title}</span>
+            <span className="body2 text-subtitle">{book.authors}</span>
+          </div>
+          <dl className={styles.summary}>
+            <dt className={styles.about}>책 소개</dt>
+            <dd className={styles.contents}>{book.contents}</dd>
+          </dl>
+        </div>
+        <div className={styles.action}>
+          <Accordion.Trigger asChild>
+            <Button size="4" color="gray" variant="soft">
+              상세보기
+              <ChevronUp size={18} />
+            </Button>
+          </Accordion.Trigger>
+          <div className={styles.prices}>
+            <span className={styles.price}>
+              <em className={styles.priceLabel}>원가</em>
+              <span className={styles.priceValue}>{book.price}</span>
+            </span>
+            <span className={styles.price}>
+              <em className={styles.priceLabel}>할인가</em>
+              <span className={styles.priceValue}>{book.sale_price}</span>
+            </span>
+          </div>
+          <Button className={styles.cta} size="4" asChild>
+            <a href={book.url} target="_blank" rel="noopener noreferrer">
+              구매하기
+            </a>
           </Button>
-        </Accordion.Trigger>
-        <div>
-          <span>{book.price}</span>
-          <span>{book.sale_price}</span>
         </div>
-        <Button size="4" asChild>
-          <a href={book.url} target="_blank" rel="noopener noreferrer">
-            구매하기
-          </a>
-        </Button>
       </div>
     </Accordion.Content>
   );
