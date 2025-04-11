@@ -1,14 +1,13 @@
 import { BookList, NoData } from '../components';
 import { useInfiniteLikedBooks } from '../hooks';
-import type { BookDocument } from '../types';
-
-const LOCAL_STORAGE_KEY = 'liked_books';
+import { likedBooksStore } from '../store';
 
 export default function BookFavorites() {
-  const allBooks: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-  const infiniteQuery = useInfiniteLikedBooks(allBooks);
+  const { likedBooks } = likedBooksStore();
 
-  return allBooks.length ? (
+  const infiniteQuery = useInfiniteLikedBooks(likedBooks);
+
+  return likedBooks.length ? (
     <BookList infiniteQuery={infiniteQuery} />
   ) : (
     <NoData message="찜한 책이 없습니다." />

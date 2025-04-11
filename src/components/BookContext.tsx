@@ -4,24 +4,10 @@ import * as styles from './BookContext.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 import { isSale, toReadableNumber } from '../lib/utils';
-
-const LOCAL_STORAGE_KEY = 'liked_books';
+import { likedBooksStore } from '../store';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
-  const likedBooks: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-
-  const isLiked = (book: BookDocument) => {
-    const exists = likedBooks.find((item) => item.isbn === book.isbn && item.title === book.title);
-    return exists;
-  };
-
-  const toggleLikedBook = (book: BookDocument) => {
-    const updated = isLiked(book)
-      ? likedBooks.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
-      : [...likedBooks, book];
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  };
+  const { toggleLikedBook, isLiked } = likedBooksStore();
 
   return (
     <Accordion.Content>
