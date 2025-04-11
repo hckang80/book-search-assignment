@@ -71,13 +71,13 @@ const BookList = ({ query, params }: BookListProps) => {
                       <span className="title3">{book.sale_price}</span>
                     </div>
                     <div className={styles.buttons}>
-                      <Button className={styles.button} size="4" asChild>
+                      <Button size="4" asChild>
                         <a href={book.url} target="_blank" rel="noopener noreferrer">
                           구매하기
                         </a>
                       </Button>
                       <Accordion.Trigger asChild>
-                        <Button className={styles.button} size="4" color="gray" variant="soft">
+                        <Button size="4" color="gray" variant="soft">
                           상세보기
                           <ChevronDown size={18} />
                         </Button>

@@ -52,12 +52,3 @@ export const buttons = style({
     }
   }
 });
-
-export const button = style({
-  selectors: {
-    [`${opener} &`]: {
-      width: 115,
-      paddingInline: 15
-    }
-  }
-});

@@ -170,7 +170,13 @@ dialog {
     gap: 5px;
 
     &.rt-r-size-4 {
+      min-width: 115px;
+      padding-inline: 15px;
       font-size: 16px;
+    }
+
+    svg.lucide {
+      flex-shrink: 0;
     }
   }
 
