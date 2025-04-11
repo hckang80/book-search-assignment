@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../components';
-import { bookSearchTargets, type BookSearchTarget } from '../types';
+import type { BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
 import * as styles from './BookSearch.css';
 import { toReadableNumber } from '../lib/utils';
+import { useSearchParams } from 'react-router';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -12,21 +13,32 @@ const MAX_HISTORY_LENGTH = 8;
 export default function BookSearch() {
   const storedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchAllContainerRef = useRef<HTMLDivElement | null>(null);
   const [value, setValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchDetailQuery, setSearchDetailQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(bookSearchTargets[0]);
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
 
-  const queryText = (searchDetailQuery || searchQuery).trim();
+  const searchQuery = (searchParams.get('query') || '').trim();
+  const searchTarget = searchParams.get('target') as BookSearchTarget | null;
+
+  useEffect(() => {
+    searchParams.set('query', searchQuery);
+
+    if (searchTarget) {
+      searchParams.set('target', searchTarget);
+    } else {
+      searchParams.delete('target');
+    }
+  }, [searchParams, searchQuery, searchTarget]);
+
   const params = {
-    query: queryText,
+    query: searchQuery,
     target: searchTarget,
     size: PAGE_SIZE
   };
 
-  const infiniteQuery = useInfiniteBookSearch(queryText, params);
+  const infiniteQuery = useInfiniteBookSearch(searchQuery, params);
   const { data } = infiniteQuery;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,9 +56,9 @@ export default function BookSearch() {
   const submitSearchQuery = (query: string) => {
     if (!query) return;
     updateHistory(query);
-    setSearchQuery(query);
+    setSearchParams({ query });
     setShowHistory(false);
-    resetDetailSearchQuery();
+    resetSearchQuery();
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -56,18 +68,11 @@ export default function BookSearch() {
 
   const resetSearchQuery = () => {
     setValue('');
-    setSearchQuery('');
-  };
-
-  const resetDetailSearchQuery = () => {
-    setSearchDetailQuery('');
-    setSearchTarget(bookSearchTargets[0]);
   };
 
   const applyDetailSearch = (query: string, target: BookSearchTarget) => {
     resetSearchQuery();
-    setSearchDetailQuery(query);
-    setSearchTarget(target);
+    setSearchParams({ query, target });
   };
 
   const handleHistorySelect = (query: string) => {
@@ -81,11 +86,27 @@ export default function BookSearch() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
   };
 
+  const handleClickOutside = useCallback(({ target }: MouseEvent) => {
+    if (!(target instanceof Node) || searchAllContainerRef.current?.contains(target)) return;
+    setShowHistory(false);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    document.addEventListener('mousedown', handleClickOutside, {
+      signal: controller.signal
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [handleClickOutside]);
+
   return (
     <section>
       <h2 className={`title2 ${styles.heading}`}>도서 검색</h2>
       <div className={styles.wrapper}>
-        <div className={styles.searchGroup}>
+        <div className={styles.searchGroup} ref={searchAllContainerRef}>
           <SearchBar
             value={value}
             onChange={handleInputChange}

@@ -10,7 +10,8 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
     <div className={`opener ${styles.opener}`}>
       <div className={styles.thumbnail}>
         <img
-          src={book.thumbnail}
+          className={styles.img}
+          src={book.thumbnail || '/blank_thumbnail.gif'}
           alt=""
           width="48"
           height="70"

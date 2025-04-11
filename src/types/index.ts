@@ -2,7 +2,7 @@ export interface BookSearchParams {
   query: string;
   page?: number;
   size?: number;
-  target?: BookSearchTarget;
+  target: BookSearchTarget | null;
 }
 
 export const bookSearchTargets = ['title', 'person', 'publisher'] as const;

@@ -12,6 +12,11 @@ export const thumbnail = style({
   paddingInline: 48
 });
 
+export const img = style({
+  width: 48,
+  height: 70
+});
+
 export const title = style({
   flexWrap: 'wrap',
   flexGrow: 1,
