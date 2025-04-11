@@ -28,10 +28,11 @@ export const detail = style({
 
 export const title = style({
   display: 'flex',
+  flexWrap: 'wrap',
   alignItems: 'center',
   gap: 16,
   marginBottom: 16,
-  height: 26
+  minHeight: 26
 });
 
 export const summary = style({});
