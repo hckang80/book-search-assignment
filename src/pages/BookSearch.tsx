@@ -107,7 +107,7 @@ export default function BookSearch() {
         <header className={styles.searchResultHeader}>
           <div>도서 검색 결과</div>
           <div>
-            총 <span className="text-blue">0</span>건
+            총 <span className="text-blue">{data?.pages[0].meta.total_count || 0}</span>건
           </div>
         </header>
         {data?.pages.length ? (
