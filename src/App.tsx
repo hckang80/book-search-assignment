@@ -1,9 +1,11 @@
 import '@radix-ui/themes/styles.css';
 import './App.css.ts';
-import { wrapper, header, heading, nav, list, item, main } from './Layout.css.ts';
-import { Outlet } from 'react-router';
+import { wrapper, header, heading, nav, list, item, main, linkActive } from './Layout.css.ts';
+import { Outlet, useLocation } from 'react-router';
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className={wrapper}>
       <header className={header}>
@@ -11,10 +13,20 @@ function App() {
         <nav className={nav}>
           <ul className={`body1 ${list}`}>
             <li className={item}>
-              <a href="/search">도서 검색</a>
+              <a
+                href="/search"
+                className={location.pathname.startsWith('/search') ? linkActive : ''}
+              >
+                도서 검색
+              </a>
             </li>
             <li>
-              <a href="/favorites">내가 찜한 책</a>
+              <a
+                href="/favorites"
+                className={location.pathname.startsWith('/favorites') ? linkActive : ''}
+              >
+                내가 찜한 책
+              </a>
             </li>
           </ul>
         </nav>
