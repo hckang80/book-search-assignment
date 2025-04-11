@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { useInfiniteBookSearch } from '../hooks';
 import { Accordion } from 'radix-ui';
 import type { BookSearchParams } from '../types';
@@ -17,27 +16,6 @@ const BookList = ({ query, params }: BookListProps) => {
     query,
     params
   );
-
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!observerRef.current || !hasNextPage || isFetchingNextPage) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    observer.observe(observerRef.current);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
     <>
