@@ -7,13 +7,7 @@ export const item = style({
 export const opener = style({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center',
-
-  selectors: {
-    [`${item}[data-state=open] &`]: {
-      display: 'none'
-    }
-  }
+  alignItems: 'center'
 });
 
 export const thumbnail = style({

@@ -6,7 +6,7 @@ import { Accordion } from 'radix-ui';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   return (
-    <div className={styles.opener}>
+    <div className={`opener ${styles.opener}`}>
       <div className={styles.thumbnail}>
         <img
           src={book.thumbnail}
