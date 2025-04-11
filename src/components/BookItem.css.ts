@@ -1,13 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
-export const item = style({
-  borderBottom: '1px solid #d2d6da'
-});
-
 export const opener = style({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
+  padding: '16px 16px 16px 0'
 });
 
 export const thumbnail = style({
