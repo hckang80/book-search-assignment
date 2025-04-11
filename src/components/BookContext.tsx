@@ -7,7 +7,7 @@ import { isSale, toReadableNumber } from '../lib/utils';
 import { likedBooksStore } from '../store';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
-  const { toggleLikedBook, isLiked } = likedBooksStore();
+  const { toggle, isLiked } = likedBooksStore();
 
   return (
     <Accordion.Content>
@@ -15,7 +15,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
         <div className={styles.thumbnail}>
           <span className={styles.image}>
             <img src={book.thumbnail} alt={book.title} width="210" height="305" />
-            <button className={styles.linkedButton} onClick={() => toggleLikedBook(book)}>
+            <button className={styles.linkedButton} onClick={() => toggle(book)}>
               {isLiked(book) ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
               ) : (

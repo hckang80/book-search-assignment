@@ -4,7 +4,7 @@ import type { BookDocument } from '../types';
 
 interface LikedBooksState {
   likedBooks: BookDocument[];
-  toggleLikedBook: (book: BookDocument) => void;
+  toggle: (book: BookDocument) => void;
   isLiked: (book: BookDocument) => boolean;
 }
 
@@ -12,7 +12,7 @@ export const likedBooksStore = create<LikedBooksState>()(
   persist(
     (set, get) => ({
       likedBooks: [],
-      toggleLikedBook: (book) => {
+      toggle: (book) => {
         const { likedBooks, isLiked } = get();
         const updated = isLiked(book)
           ? likedBooks.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
