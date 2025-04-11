@@ -8,12 +8,17 @@ import { isSale, toReadableNumber } from '../lib/utils';
 const LOCAL_STORAGE_KEY = 'liked_books';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
+  const likedBooks: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+
+  const isLiked = (book: BookDocument) => {
+    const exists = likedBooks.find((item) => item.isbn === book.isbn && item.title === book.title);
+    return exists;
+  };
+
   const toggleLikedBook = (book: BookDocument) => {
-    const saved: BookDocument[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-    const exists = saved.find((item) => item.isbn === book.isbn && item.title === book.title);
-    const updated = exists
-      ? saved.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
-      : [...saved, book];
+    const updated = isLiked(book)
+      ? likedBooks.filter((item) => item.isbn !== book.isbn || item.title !== book.title)
+      : [...likedBooks, book];
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
   };
@@ -25,8 +30,11 @@ const BookContext = ({ book }: { book: BookDocument }) => {
           <span className={styles.image}>
             <img src={book.thumbnail} alt={book.title} width="210" height="305" />
             <button className={styles.linkedButton} onClick={() => toggleLikedBook(book)}>
-              <Heart color="var(--palette-gray)" />
-              {/* --palette-red */}
+              {isLiked(book) ? (
+                <Heart color="var(--palette-red)" fill="var(--palette-red)" />
+              ) : (
+                <Heart color="var(--palette-gray)" />
+              )}
             </button>
           </span>
         </div>
