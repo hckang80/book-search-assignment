@@ -58,6 +58,7 @@ export default function BookSearch() {
     updateHistory(query);
     setSearchParams({ query });
     setShowHistory(false);
+    resetSearchQuery();
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
