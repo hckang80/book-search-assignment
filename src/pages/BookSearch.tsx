@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../components';
 import type { BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
@@ -14,7 +14,7 @@ export default function BookSearch() {
   const storedHistory = localStorage.getItem(LOCAL_STORAGE_KEY);
 
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const searchAllContainerRef = useRef<HTMLDivElement | null>(null);
   const [value, setValue] = useState('');
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
@@ -86,11 +86,27 @@ export default function BookSearch() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
   };
 
+  const handleClickOutside = useCallback(({ target }: MouseEvent) => {
+    if (!(target instanceof Node) || searchAllContainerRef.current?.contains(target)) return;
+    setShowHistory(false);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    document.addEventListener('mousedown', handleClickOutside, {
+      signal: controller.signal
+    });
+    return () => {
+      controller.abort();
+    };
+  }, [handleClickOutside]);
+
   return (
     <section>
       <h2 className={`title2 ${styles.heading}`}>도서 검색</h2>
       <div className={styles.wrapper}>
-        <div className={styles.searchGroup}>
+        <div className={styles.searchGroup} ref={searchAllContainerRef}>
           <SearchBar
             value={value}
             onChange={handleInputChange}
