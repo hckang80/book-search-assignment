@@ -15,33 +15,25 @@ export default function BookSearch() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const initialQuery = searchParams.get('query') ?? '';
-  const initialTarget = searchParams.get('target') ?? bookSearchTargets[0];
-
   const [value, setValue] = useState('');
-  const [searchQuery, setSearchQuery] = useState(initialQuery);
-  const [searchDetailQuery, setSearchDetailQuery] = useState('');
-  const [searchTarget, setSearchTarget] = useState<BookSearchTarget>(
-    initialTarget as BookSearchTarget
-  );
   const [history, setHistory] = useState<string[]>(storedHistory ? JSON.parse(storedHistory) : []);
   const [showHistory, setShowHistory] = useState(false);
 
-  useEffect(() => {
-    const query = searchParams.get('query') || '';
-    const target = searchParams.get('target') || bookSearchTargets[0];
-    setSearchQuery(query);
-    setSearchTarget(target as BookSearchTarget);
-  }, [searchParams]);
+  const searchQuery = (searchParams.get('query') || '').trim();
+  const searchTarget = searchParams.get('target') || bookSearchTargets[0];
 
-  const queryText = (searchDetailQuery || searchQuery).trim();
+  useEffect(() => {
+    searchParams.set('query', searchQuery);
+    searchParams.set('target', searchTarget);
+  }, [searchParams, searchQuery, searchTarget]);
+
   const params = {
-    query: queryText,
-    target: searchTarget,
+    query: searchQuery,
+    target: searchTarget as BookSearchTarget,
     size: PAGE_SIZE
   };
 
-  const infiniteQuery = useInfiniteBookSearch(queryText, params);
+  const infiniteQuery = useInfiniteBookSearch(searchQuery, params);
   const { data } = infiniteQuery;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,10 +51,8 @@ export default function BookSearch() {
   const submitSearchQuery = (query: string) => {
     if (!query) return;
     updateHistory(query);
-    setSearchQuery(query);
-    setSearchParams({ query, target: searchTarget });
+    setSearchParams({ query, target: bookSearchTargets[0] });
     setShowHistory(false);
-    resetDetailSearchQuery();
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -72,18 +62,10 @@ export default function BookSearch() {
 
   const resetSearchQuery = () => {
     setValue('');
-    setSearchQuery('');
-  };
-
-  const resetDetailSearchQuery = () => {
-    setSearchDetailQuery('');
-    setSearchTarget(bookSearchTargets[0]);
   };
 
   const applyDetailSearch = (query: string, target: BookSearchTarget) => {
     resetSearchQuery();
-    setSearchDetailQuery(query);
-    setSearchTarget(target);
     setSearchParams({ query, target });
   };
 
