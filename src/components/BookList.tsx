@@ -3,10 +3,9 @@ import { useInfiniteBookSearch } from '../hooks';
 import { Accordion } from 'radix-ui';
 import type { BookSearchParams } from '../types';
 import { InfiniteScrollTrigger } from './shared';
-import { Button, Theme } from '@radix-ui/themes';
-import { ChevronDown } from 'lucide-react';
+import { Theme } from '@radix-ui/themes';
 import * as styles from './BookList.css';
-import { BookContext } from '.';
+import { BookContext, BookItem } from '.';
 
 interface BookListProps {
   query: string;
@@ -52,38 +51,7 @@ const BookList = ({ query, params }: BookListProps) => {
                   key={book.title + book.isbn}
                   value={book.title + book.isbn}
                 >
-                  <div className={styles.opener}>
-                    <div className={styles.thumbnail}>
-                      <img
-                        src={book.thumbnail}
-                        alt=""
-                        width="48"
-                        height="70"
-                        loading={pageIndex ? 'lazy' : 'eager'}
-                        decoding={pageIndex ? 'async' : 'sync'}
-                      />
-                    </div>
-                    <div className={styles.title}>
-                      <span className="title3">{book.title}</span>
-                      <span className="body2 text-secondary">{book.authors}</span>
-                    </div>
-                    <div className={styles.price}>
-                      <span className="title3">{book.sale_price}</span>
-                    </div>
-                    <div className={styles.buttons}>
-                      <Button size="4" asChild>
-                        <a href={book.url} target="_blank" rel="noopener noreferrer">
-                          구매하기
-                        </a>
-                      </Button>
-                      <Accordion.Trigger asChild>
-                        <Button size="4" color="gray" variant="soft">
-                          상세보기
-                          <ChevronDown size={18} />
-                        </Button>
-                      </Accordion.Trigger>
-                    </div>
-                  </div>
+                  <BookItem book={book} pageIndex={pageIndex} />
                   <BookContext book={book} />
                 </Accordion.Item>
               ))}
