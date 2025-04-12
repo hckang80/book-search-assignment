@@ -1,7 +1,7 @@
-import { BookList, NoData } from '../components';
-import { useInfiniteLikedBooks } from '../hooks';
-import { toReadableNumber } from '../lib/utils';
-import { likedBooksStore } from '../store';
+import { BookList, NoData } from 'src/components';
+import { useInfiniteLikedBooks } from 'src/hooks';
+import { toReadableNumber } from 'src/lib/utils';
+import { likedBooksStore } from 'src/store';
 import * as styles from './PageLayout.css';
 
 export default function BookFavorites() {

@@ -1,9 +1,9 @@
 import { useState, memo } from 'react';
 import { Button, Popover, Select, Theme } from '@radix-ui/themes';
-import { type BookSearchTarget, bookSearchTargets } from '../types';
+import { type BookSearchTarget, bookSearchTargets } from 'src/types';
 import * as styles from './DetailSearch.css';
 import { X } from 'lucide-react';
-import { targetName } from '../lib/constant';
+import { targetName } from 'src/lib/constant';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;

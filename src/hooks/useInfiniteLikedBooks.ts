@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { BookDocument } from '../types';
-import { fetchLikedBooks } from '../api';
+import type { BookDocument } from 'src/types';
+import { fetchLikedBooks } from 'src/api';
 
 export const useInfiniteLikedBooks = (allBooks: BookDocument[]) => {
   return useInfiniteQuery({

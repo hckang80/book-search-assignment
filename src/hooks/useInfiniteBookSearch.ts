@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { fetchBookSearch } from '../api';
-import type { BookSearchParams } from '../types';
+import { fetchBookSearch } from 'src/api';
+import type { BookSearchParams } from 'src/types';
 
 export const useInfiniteBookSearch = (query: string, params: BookSearchParams) => {
   return useInfiniteQuery({

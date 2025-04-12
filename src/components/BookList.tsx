@@ -1,4 +1,4 @@
-import type { BookInstance } from '../types';
+import type { BookInstance } from 'src/types';
 import { InfiniteScrollTrigger } from './shared';
 import * as styles from './BookList.css';
 import { BookContext, BookItem } from '.';
