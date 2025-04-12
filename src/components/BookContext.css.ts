@@ -23,7 +23,8 @@ export const linkedButton = style({
 });
 
 export const detail = style({
-  padding: '20px 48px 0 0'
+  padding: '20px 48px 0 0',
+  flexGrow: 1
 });
 
 export const title = style({
