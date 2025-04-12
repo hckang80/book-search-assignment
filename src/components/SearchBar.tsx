@@ -1,5 +1,5 @@
 import { TextField } from '@radix-ui/themes';
-import { wrapper, icon } from './SearchBar.css.ts';
+import { form, wrapper, icon } from './SearchBar.css.ts';
 import { Search } from 'lucide-react';
 
 interface SearchBarProps {
@@ -11,7 +11,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ value, onChange, onSubmit, onFocus }: SearchBarProps) => {
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={form}>
       <TextField.Root
         value={value}
         onChange={onChange}

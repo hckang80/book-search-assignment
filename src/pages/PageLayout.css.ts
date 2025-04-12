@@ -6,12 +6,13 @@ export const heading = style({
 
 export const wrapper = style({
   display: 'flex',
-  gap: 16,
-  maxWidth: 568
+  gap: 16
 });
 
 export const searchGroup = style({
-  flexGrow: 1
+  flexBasis: 480,
+  position: 'relative',
+  zIndex: 4
 });
 
 export const searchResult = style({
