@@ -30,7 +30,7 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
               fill="var(--palette-red)"
             />
           ) : (
-            <Heart className={styles.icon} size={14} color="var(--palette-gray)" />
+            <Heart className={styles.icon} size={14} color="#fff" />
           )}
         </button>
       </div>
