@@ -18,6 +18,7 @@ export const item = style({
 
 const button = style({
   all: 'unset',
+  wordBreak: 'break-word',
   selectors: {
     '&:not(:disabled)': {
       cursor: 'pointer'
