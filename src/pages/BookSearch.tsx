@@ -49,7 +49,7 @@ export default function BookSearch() {
 
   const updateHistory = (query: string) => {
     setHistory((prev) => {
-      const updated = [...new Set([...prev, query])].slice(-MAX_HISTORY_LENGTH);
+      const updated = [...new Set([query, ...prev])].slice(0, MAX_HISTORY_LENGTH);
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
       return updated;
     });
