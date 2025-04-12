@@ -24,4 +24,9 @@ const button = style({
 
 export const label = style([button, {}]);
 
-export const deleteButton = style([button, {}]);
+export const deleteButton = style([
+  button,
+  {
+    flexShrink: 0
+  }
+]);
