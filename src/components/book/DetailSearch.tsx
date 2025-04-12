@@ -4,6 +4,7 @@ import type { BookSearchTarget } from 'src/types';
 import * as styles from './DetailSearch.css';
 import { X } from 'lucide-react';
 import { TARGET_NAME } from 'src/constants';
+import clsx from 'clsx';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
@@ -106,7 +107,7 @@ const QueryInput = memo(({ query, onChange }: QueryInputProps) => {
 
   return (
     <input
-      className={`caption ${styles.queryInput}`}
+      className={clsx('caption', styles.queryInput)}
       type="text"
       value={query}
       onChange={handleChange}

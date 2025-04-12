@@ -1,12 +1,9 @@
 import { style } from '@vanilla-extract/css';
 
-export const heading = style({
-  marginBottom: 16
-});
-
 export const wrapper = style({
   display: 'flex',
-  gap: 16
+  gap: 16,
+  marginTop: 16
 });
 
 export const searchGroup = style({

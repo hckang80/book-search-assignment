@@ -6,12 +6,13 @@ import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib';
 import { favoritedBooksStore } from 'src/store';
 import { memo } from 'react';
+import clsx from 'clsx';
 
 const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   const { toggle, isFavorited } = favoritedBooksStore();
 
   return (
-    <div className={`opener ${styles.opener}`}>
+    <div className={clsx('opener', styles.opener)}>
       <div className={styles.thumbnail}>
         <button className={styles.linkedButton} onClick={() => toggle(book)}>
           <img
