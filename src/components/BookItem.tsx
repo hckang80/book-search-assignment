@@ -37,7 +37,7 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
         <Accordion.Trigger asChild>
           <Button size="4" color="gray" variant="soft">
             상세보기
-            <ChevronDown size={18} />
+            <ChevronDown size={18} color="#b1b8c0" />
           </Button>
         </Accordion.Trigger>
       </div>
