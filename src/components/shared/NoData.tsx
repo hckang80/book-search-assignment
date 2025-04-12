@@ -1,4 +1,4 @@
-import ICON_BOOK from '../../assets/icon_book.svg';
+import ICON_BOOK from 'src/assets/icon_book.svg';
 import { noData, noDataIcon } from './NoData.css';
 
 export const NoData = ({ message = '검색된 결과가 없습니다.' }: { message?: string }) => {

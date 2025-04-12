@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { slideDown } from '../App.css';
+import { slideDown } from 'src/App.css';
 
 export const wrapper = style({
   overflow: 'hidden',

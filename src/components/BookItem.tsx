@@ -1,9 +1,9 @@
-import type { BookDocument } from '../types';
+import type { BookDocument } from 'src/types';
 import { Button } from '@radix-ui/themes';
 import { ChevronDown } from 'lucide-react';
 import * as styles from './BookItem.css';
 import { Accordion } from 'radix-ui';
-import { isSale, toReadableNumber } from '../lib/utils';
+import { isSale, toReadableNumber } from 'src/lib/utils';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   return (

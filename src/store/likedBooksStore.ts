@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { BookDocument } from '../types';
+import type { BookDocument } from 'src/types';
 
 interface LikedBooksState {
   likedBooks: BookDocument[];
