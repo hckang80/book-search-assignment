@@ -1,5 +1,5 @@
-export { default as BookContext } from './BookContext';
-export { default as BookItem } from './BookItem';
+export { default as BookSpecs } from './BookSpecs';
+export { default as BookPreview } from './BookPreview';
 export { default as BookList } from './BookList';
 export { default as DetailSearch } from './DetailSearch';
 export { default as SearchBar } from './SearchBar';

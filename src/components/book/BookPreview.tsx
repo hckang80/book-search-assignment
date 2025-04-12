@@ -1,12 +1,12 @@
 import type { BookDocument } from 'src/types';
 import { Button } from '@radix-ui/themes';
 import { ChevronDown, Heart } from 'lucide-react';
-import * as styles from './BookItem.css';
+import * as styles from './BookPreview.css';
 import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib';
 import { favoritedBooksStore } from 'src/store';
 
-const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
+const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   const { toggle, isFavorited } = favoritedBooksStore();
 
   return (
@@ -60,4 +60,4 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
   );
 };
 
-export default BookItem;
+export default BookPreview;
