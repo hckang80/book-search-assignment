@@ -108,7 +108,7 @@ export default function BookSearch() {
 
   return (
     <section>
-      <h2 className={`title2 ${styles.heading}`}>도서 검색</h2>
+      <h2 className="title2">도서 검색</h2>
       <div className={styles.wrapper}>
         <div className={styles.searchGroup} ref={searchAllContainerRef}>
           <SearchBar

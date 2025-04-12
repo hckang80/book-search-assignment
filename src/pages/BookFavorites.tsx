@@ -11,7 +11,7 @@ export default function BookFavorites() {
 
   return (
     <section>
-      <h2 className={`title2 ${styles.heading}`}>내가 찜한 책</h2>
+      <h2 className="title2">내가 찜한 책</h2>
       <div className={styles.searchResult}>
         <header className={styles.searchResultHeader}>
           <h3 className={styles.subHeading}>찜한 책</h3>
