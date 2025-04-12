@@ -5,6 +5,7 @@ import * as styles from './BookPreview.css';
 import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib';
 import { favoritedBooksStore } from 'src/store';
+import { memo } from 'react';
 
 const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
   const { toggle, isFavorited } = favoritedBooksStore();
@@ -59,5 +60,6 @@ const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: numbe
     </div>
   );
 };
+BookPreview.displayName = 'BookPreview';
 
-export default BookPreview;
+export default memo(BookPreview);
