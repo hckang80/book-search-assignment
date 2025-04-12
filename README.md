@@ -1,54 +1,69 @@
-# React + TypeScript + Vite
+# 📚 Kakao 책 검색 기반 도서 탐색 서비스
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🧾 프로젝트 개요
 
-Currently, two official plugins are available:
+Kakao 책 검색 API를 기반으로 원하는 도서를 빠르게 찾고, 상세 정보를 확인하며, 마음에 드는 책을 찜할 수 있는 웹 애플리케이션입니다. React 19, TypeScript, React Query v5, Vanilla Extract 등 최신 기술 스택을 활용하여 사용성과 성능을 모두 고려해 개발했습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ⚙️ 실행 방법 및 환경 설정
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+# node v22.11.0
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 폴더 구조 및 주요 코드 설명
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+src/
+├── api/                # API 기본 설정 및 Fetch 함수 정의
+├── components/         
+│   └── book/           # 도서 관련 도메인 컴포넌트
+│   └── common/         # 공통 컴포넌트
+├── constants/          # 매직 넘버 등 공통 상수
+├── contexts/           # 전역 설정 컨텍스트 (React Query)
+├── hooks/              # 커스텀 훅
+├── lib/                # 유틸 함수 (금액 포맷 등)
+├── pages/              # 각 페이지의 최상위 컴포넌트 (도서 검색, 내가 찜한 책)
+├── store/              # zustand 기반 상태 관리 (찜한 책 관리)
+└── types/              # 프로젝트 전반에서 사용하는 타입 정의
 ```
+
+---
+
+## 📦 라이브러리 선택 이유
+
+| 라이브러리                             | 선택 이유 |
+|----------------------------------------|-----------|
+| `zustand`                            | 가볍고 직관적인 전역 상태 관리. persist 함수를 통해 로컬스토리지 저장도 가능. 반응성. 타입 안정성 면에서도 우수 |
+| `vanilla-extract`                    | Zero-runtime CSS in JS로 성능이 우수. 강력한 타입 지원 |
+| `axios`                              | HTTP 요청 설정, 인터셉터 기능 등 `fetch`보다 나은 확장성 |
+| `radix-ui`                   | Headless UI 라이브러리. 일관된 UI 구성과 쉬운 디자인 커스터마이징 가능 |
+| `lucide-react`                       | 다양한 아이콘 제공 및 커스텀으로 일관된 디자인 가능 |
+| `react-spinners`                              | 로딩 UI를 통해 사용자 경험 향상 |
+
+---
+
+## ✨ 강조하고 싶은 기능
+- **URLSearchParams를 활용하여 검색 내용 유지**
+  - 새로고침시에도 검색한 내용을 잃어버리지 않도록 사용자 경험 향상
+  - 코드 측면에서도 상태 관리가 훨씬 간결해짐
+
+- **도서 목록**
+  - React Query useInfiniteQuery(무한 스크롤)로 자연스러운 페이지네이션
+
+- **디자인 (스타일링)**
+  - 전문 퍼블리셔로 재직했던 경험을 활용하여 꼼꼼하고 완성도 높은 스타일링
+  - 디자인 토큰을 적극 활용하여 일관성 있는 스타일링
+  - 돋보기, 하트, X 등의 아이콘은 라이브러리를 사용하여 사이즈, 색상 변경 등 커스텀이 유연하도록 작업 (피그마 다운로드가 아니라서 디자인과 살짝 다를 수 있음)
+
+- **서비스 성능 최적화**
+  - 썸네일 요소에 사이즈, lazy loading 속성을 적극 활용하여 리플로우 방지 등 최적화
+
+- **기타 사용자 경험 향상**
+  - 검색어 입력시 공백 제거
+  - 검색 히스토리를 최근순으로 정렬하여 보다 자연스러운 경험 제공
