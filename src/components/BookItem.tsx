@@ -23,9 +23,14 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
             decoding={pageIndex ? 'async' : 'sync'}
           />
           {isLiked(book) ? (
-            <Heart color="var(--palette-red)" fill="var(--palette-red)" />
+            <Heart
+              className={styles.icon}
+              size={14}
+              color="var(--palette-red)"
+              fill="var(--palette-red)"
+            />
           ) : (
-            <Heart color="var(--palette-gray)" />
+            <Heart className={styles.icon} size={14} color="var(--palette-gray)" />
           )}
         </button>
       </div>

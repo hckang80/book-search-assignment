@@ -12,6 +12,16 @@ export const thumbnail = style({
   paddingInline: 48
 });
 
+export const linkedButton = style({
+  position: 'relative'
+});
+
+export const icon = style({
+  position: 'absolute',
+  right: 1.5,
+  top: 2
+});
+
 export const img = style({
   width: 48,
   height: 70
