@@ -1,3 +1,3 @@
 export * from './useDebounce';
 export * from './useInfiniteBookSearch';
-export * from './useInfiniteLikedBooks';
+export * from './useInfiniteFavoriteBooks';

@@ -2,9 +2,9 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import type { BookDocument } from 'src/types';
 import { fetchLikedBooks } from 'src/api';
 
-export const useInfiniteLikedBooks = (allBooks: BookDocument[]) => {
+export const useInfiniteFavoriteBooks = (allBooks: BookDocument[]) => {
   return useInfiniteQuery({
-    queryKey: ['likedBooks', allBooks],
+    queryKey: ['favoritedBooks', allBooks],
     queryFn: ({ pageParam }) => fetchLikedBooks(allBooks, pageParam),
     getNextPageParam: (lastPage, allPages) => {
       const { is_end: isListEnd } = lastPage.meta;

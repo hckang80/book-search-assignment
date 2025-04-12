@@ -1,13 +1,13 @@
 import { BookList, NoData } from 'src/components';
-import { useInfiniteLikedBooks } from 'src/hooks';
+import { useInfiniteFavoriteBooks } from 'src/hooks';
 import { toReadableNumber } from 'src/lib';
-import { likedBooksStore } from 'src/store';
+import { favoritedBooksStore } from 'src/store';
 import * as styles from './PageLayout.css';
 
 export default function BookFavorites() {
-  const { likedBooks } = likedBooksStore();
+  const { favoritedBooks } = favoritedBooksStore();
 
-  const infiniteQuery = useInfiniteLikedBooks(likedBooks);
+  const infiniteQuery = useInfiniteFavoriteBooks(favoritedBooks);
 
   return (
     <section>
@@ -16,10 +16,10 @@ export default function BookFavorites() {
         <header className={styles.searchResultHeader}>
           <h3 className={styles.subHeading}>찜한 책</h3>
           <div>
-            총 <span className="text-blue">{toReadableNumber(likedBooks.length)}</span>건
+            총 <span className="text-blue">{toReadableNumber(favoritedBooks.length)}</span>건
           </div>
         </header>
-        {likedBooks.length ? (
+        {favoritedBooks.length ? (
           <BookList infiniteQuery={infiniteQuery} />
         ) : (
           <NoData message="찜한 책이 없습니다." />

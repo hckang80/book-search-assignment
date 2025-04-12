@@ -4,10 +4,10 @@ import { ChevronDown, Heart } from 'lucide-react';
 import * as styles from './BookItem.css';
 import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib';
-import { likedBooksStore } from 'src/store';
+import { favoritedBooksStore } from 'src/store';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
-  const { toggle, isLiked } = likedBooksStore();
+  const { toggle, isFavorited } = favoritedBooksStore();
 
   return (
     <div className={`opener ${styles.opener}`}>
@@ -22,7 +22,7 @@ const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }
             loading={pageIndex ? 'lazy' : 'eager'}
             decoding={pageIndex ? 'async' : 'sync'}
           />
-          {isLiked(book) ? (
+          {isFavorited(book) ? (
             <Heart
               className={styles.icon}
               size={14}

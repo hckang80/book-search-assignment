@@ -4,10 +4,10 @@ import * as styles from './BookContext.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 import { isSale, toReadableNumber } from 'src/lib';
-import { likedBooksStore } from 'src/store';
+import { favoritedBooksStore } from 'src/store';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
-  const { toggle, isLiked } = likedBooksStore();
+  const { toggle, isFavorited } = favoritedBooksStore();
 
   return (
     <Accordion.Content className={styles.wrapper}>
@@ -21,7 +21,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
               height="305"
             />
             <button className={styles.linkedButton} onClick={() => toggle(book)}>
-              {isLiked(book) ? (
+              {isFavorited(book) ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
               ) : (
                 <Heart color="#fff" />
