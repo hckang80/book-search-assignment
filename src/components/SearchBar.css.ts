@@ -8,7 +8,7 @@ export const form = style({
 export const wrapper = style({
   gap: 11,
   height: 50,
-  paddingInline: 10,
+  paddingInline: '10px 20px',
   border: 0,
   boxShadow: 'none',
   borderRadius: 100
