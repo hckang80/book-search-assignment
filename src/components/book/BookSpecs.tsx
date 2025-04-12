@@ -5,6 +5,7 @@ import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 import { isSale, toReadableNumber } from 'src/lib';
 import { favoritedBooksStore } from 'src/store';
+import { memo } from 'react';
 
 const BookSpecs = ({ book }: { book: BookDocument }) => {
   const { toggle, isFavorited } = favoritedBooksStore();
@@ -70,5 +71,6 @@ const BookSpecs = ({ book }: { book: BookDocument }) => {
     </Accordion.Content>
   );
 };
+BookSpecs.displayName = 'BookSpecs';
 
-export default BookSpecs;
+export default memo(BookSpecs);

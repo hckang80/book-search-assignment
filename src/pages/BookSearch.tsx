@@ -12,12 +12,12 @@ const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
 
 export default function BookSearch() {
-  const storedHistory: string[] = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
-
   const [searchParams, setSearchParams] = useSearchParams();
   const searchAllContainerRef = useRef<HTMLDivElement | null>(null);
   const [value, setValue] = useState('');
-  const [history, setHistory] = useState<string[]>(storedHistory);
+  const [history, setHistory] = useState<string[]>(() =>
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]')
+  );
   const [showHistory, setShowHistory] = useState(false);
 
   const searchQuery = (searchParams.get('query') || '').trim();
