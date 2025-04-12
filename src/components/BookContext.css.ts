@@ -1,14 +1,5 @@
-import { style, keyframes } from '@vanilla-extract/css';
-
-const slideDown = keyframes({
-  from: { height: '0' },
-  to: { height: 'var(--radix-accordion-content-height)' }
-});
-
-const slideUp = keyframes({
-  from: { height: 'var(--radix-accordion-content-height)' },
-  to: { height: '0' }
-});
+import { style } from '@vanilla-extract/css';
+import { slideDown, slideUp } from '../App.css';
 
 export const wrapper = style({
   overflow: 'hidden',
