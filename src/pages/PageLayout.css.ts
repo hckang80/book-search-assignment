@@ -30,3 +30,7 @@ export const subHeading = style({
   fontWeight: 'inherit',
   fontSize: 'inherit'
 });
+
+export const loader = style({
+  margin: '120px auto'
+});
