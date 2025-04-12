@@ -4,6 +4,7 @@ export const list = style({
   display: 'grid',
   gap: 24,
   position: 'absolute',
+  insetInline: 0,
   marginTop: -50,
   padding: '69px 25px 28px 51px',
   borderRadius: 24
