@@ -1,3 +1,5 @@
+import { TARGET_NAME } from 'src/constants';
+
 export interface BookSearchParams {
   query: string;
   page?: number;
@@ -5,9 +7,7 @@ export interface BookSearchParams {
   target: BookSearchTarget | null;
 }
 
-export const bookSearchTargets = ['title', 'person', 'publisher'] as const;
-
-export type BookSearchTarget = (typeof bookSearchTargets)[number];
+export type BookSearchTarget = keyof typeof TARGET_NAME;
 
 export interface BookInstance {
   meta: BookMeta;

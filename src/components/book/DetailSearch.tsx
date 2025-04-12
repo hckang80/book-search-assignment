@@ -1,6 +1,6 @@
 import { useState, memo } from 'react';
 import { Button, Popover, Select, Theme } from '@radix-ui/themes';
-import { type BookSearchTarget, bookSearchTargets } from 'src/types';
+import type { BookSearchTarget } from 'src/types';
 import * as styles from './DetailSearch.css';
 import { X } from 'lucide-react';
 import { TARGET_NAME } from 'src/constants';
@@ -8,6 +8,8 @@ import { TARGET_NAME } from 'src/constants';
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
 }
+
+const bookSearchTargets = Object.keys(TARGET_NAME) as BookSearchTarget[];
 
 const DetailSearch = ({ onSubmit }: DetailSearchProps) => {
   const [open, setOpen] = useState(false);
