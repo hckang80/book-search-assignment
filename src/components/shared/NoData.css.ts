@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 
 export const noData = style({
-  marginTop: 120,
+  marginBlock: 120,
   textAlign: 'center'
 });
 

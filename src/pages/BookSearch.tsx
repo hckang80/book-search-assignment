@@ -125,6 +125,7 @@ export default function BookSearch() {
 
         <DetailSearch onSubmit={applyDetailSearch} />
       </div>
+
       {isLoading ? (
         <FadeLoader className={styles.loader} />
       ) : (
@@ -137,7 +138,11 @@ export default function BookSearch() {
               건
             </div>
           </header>
-          {data?.pages.length ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
+          {data?.pages[0].meta.total_count ? (
+            <BookList infiniteQuery={infiniteQuery} />
+          ) : (
+            <NoData />
+          )}
         </div>
       )}
     </section>
