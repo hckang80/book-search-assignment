@@ -1,4 +1,26 @@
-import { style } from '@vanilla-extract/css';
+import { style, keyframes } from '@vanilla-extract/css';
+
+const slideDown = keyframes({
+  from: { height: '0' },
+  to: { height: 'var(--radix-accordion-content-height)' }
+});
+
+const slideUp = keyframes({
+  from: { height: 'var(--radix-accordion-content-height)' },
+  to: { height: '0' }
+});
+
+export const wrapper = style({
+  overflow: 'hidden',
+  selectors: {
+    '&[data-state=closed]': {
+      animation: `${slideUp} 300ms cubic-bezier(0.87, 0, 0.13, 1)`
+    },
+    '&[data-state=open]': {
+      animation: `${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1)`
+    }
+  }
+});
 
 export const context = style({
   display: 'flex',

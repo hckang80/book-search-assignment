@@ -10,7 +10,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
   const { toggle, isLiked } = likedBooksStore();
 
   return (
-    <Accordion.Content>
+    <Accordion.Content className={styles.wrapper}>
       <div className={styles.context}>
         <div className={styles.thumbnail}>
           <span className={styles.image}>
