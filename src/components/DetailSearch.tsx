@@ -79,11 +79,13 @@ const TargetSelector = memo(({ target, onChange }: TargetSelectorProps) => {
     <Select.Root value={target} onValueChange={onChange}>
       <Select.Trigger className={styles.targetSelect}>{targetName[target]}</Select.Trigger>
       <Select.Content className={styles.targetOption}>
-        {bookSearchTargets.map((label) => (
-          <Select.Item value={label} key={label}>
-            {targetName[label]}
-          </Select.Item>
-        ))}
+        {bookSearchTargets
+          .filter((searchTarget) => searchTarget !== target)
+          .map((label) => (
+            <Select.Item value={label} key={label}>
+              {targetName[label]}
+            </Select.Item>
+          ))}
       </Select.Content>
     </Select.Root>
   );
