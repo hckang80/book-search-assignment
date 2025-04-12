@@ -1,7 +1,7 @@
 import type { BookInstance } from 'src/types';
 import { InfiniteScrollTrigger } from 'src/components/common';
 import * as styles from './BookList.css';
-import { BookContext, BookItem } from '..';
+import { BookSpecs, BookPreview } from '..';
 import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
 import SyncLoader from 'react-spinners/SyncLoader';
@@ -26,8 +26,8 @@ const BookList = ({ infiniteQuery }: BookListProps) => {
                   key={book.title + book.isbn}
                   value={book.title + book.isbn}
                 >
-                  <BookItem book={book} pageIndex={pageIndex} />
-                  <BookContext book={book} />
+                  <BookPreview book={book} pageIndex={pageIndex} />
+                  <BookSpecs book={book} />
                 </Accordion.Item>
               ))}
             </div>
