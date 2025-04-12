@@ -1,6 +1,7 @@
 import { TextField } from '@radix-ui/themes';
 import { form, wrapper, icon } from './SearchBar.css.ts';
 import { Search } from 'lucide-react';
+import clsx from 'clsx';
 
 interface SearchBarProps {
   value: string;
@@ -17,7 +18,7 @@ const SearchBar = ({ value, onChange, onSubmit, onFocus }: SearchBarProps) => {
         onChange={onChange}
         onFocus={onFocus}
         placeholder="검색어를 입력하세요"
-        className={`palette-light-gray caption ${wrapper}`}
+        className={clsx('palette-light-gray', 'caption', wrapper)}
       >
         <TextField.Slot>
           <Search className={icon} size={30} color="var(--text-primary)" />

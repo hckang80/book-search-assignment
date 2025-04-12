@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import * as styles from './SearchHistory.css';
 import { X } from 'lucide-react';
 
@@ -12,9 +13,9 @@ const SearchHistory = ({ visible, history, onSelect, onDelete }: SearchHistoryPr
   if (!visible || history.length === 0) return;
 
   return (
-    <ul className={`palette-light-gray ${styles.list}`}>
+    <ul className={clsx('palette-light-gray', styles.list)}>
       {history.map((item) => (
-        <li className={`text-subtitle caption ${styles.item}`} key={item}>
+        <li className={clsx('text-subtitle', 'caption', styles.item)} key={item}>
           <button className={styles.label} onClick={() => onSelect(item)}>
             {item}
           </button>
