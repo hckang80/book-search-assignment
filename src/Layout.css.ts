@@ -23,7 +23,12 @@ export const heading = style({
   textTransform: 'uppercase'
 });
 
-export const nav = style([main]);
+export const nav = style([
+  main,
+  {
+    position: 'relative'
+  }
+]);
 
 export const list = style({
   display: 'flex',
