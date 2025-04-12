@@ -166,6 +166,7 @@ dialog {
   .rt-Button {
     border-radius: 8px;
     gap: 5px;
+    white-space: nowrap;
 
     &.rt-r-size-4 {
       min-width: 115px;
