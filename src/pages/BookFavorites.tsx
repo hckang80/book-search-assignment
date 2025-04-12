@@ -2,7 +2,7 @@ import { BookList, NoData } from '../components';
 import { useInfiniteLikedBooks } from '../hooks';
 import { toReadableNumber } from '../lib/utils';
 import { likedBooksStore } from '../store';
-import * as styles from './BookSearch.css';
+import * as styles from './PageLayout.css';
 
 export default function BookFavorites() {
   const { likedBooks } = likedBooksStore();

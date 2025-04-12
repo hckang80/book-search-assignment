@@ -3,7 +3,7 @@ import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../com
 import type { BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
-import * as styles from './BookSearch.css';
+import * as styles from './PageLayout.css';
 import { toReadableNumber } from '../lib/utils';
 import { useSearchParams } from 'react-router';
 
