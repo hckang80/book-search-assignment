@@ -11,8 +11,6 @@
   --text-primary: #353c49;
   --text-secondary: #6d7582;
   --text-subtitle: #8d94a0;
-
-  --indigo-9: var(--palette-primary) !important;
 }
 
 *,
@@ -168,11 +166,19 @@ dialog {
   .rt-Button {
     border-radius: 8px;
     gap: 5px;
+    white-space: nowrap;
 
     &.rt-r-size-4 {
       min-width: 115px;
       padding-inline: 15px;
       font-size: 16px;
+    }
+
+    &.rt-variant-solid {
+      background: var(--palette-primary);
+    }
+    &.rt-variant-soft {
+      background: var(--palette-light-gray);
     }
 
     svg.lucide {

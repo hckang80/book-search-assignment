@@ -3,9 +3,10 @@ import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from '../com
 import type { BookSearchTarget } from '../types';
 import { useInfiniteBookSearch } from '../hooks';
 import { PAGE_SIZE } from '../lib/constant';
-import * as styles from './BookSearch.css';
+import * as styles from './PageLayout.css';
 import { toReadableNumber } from '../lib/utils';
 import { useSearchParams } from 'react-router';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 const LOCAL_STORAGE_KEY = 'search_history';
 const MAX_HISTORY_LENGTH = 8;
@@ -39,7 +40,8 @@ export default function BookSearch() {
   };
 
   const infiniteQuery = useInfiniteBookSearch(searchQuery, params);
-  const { data } = infiniteQuery;
+  const { data, isLoading } = infiniteQuery;
+  const itemCount = data?.pages[0].meta.total_count || 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
@@ -125,16 +127,19 @@ export default function BookSearch() {
         <DetailSearch onSubmit={applyDetailSearch} />
       </div>
 
-      <div className={styles.searchResult}>
-        <header className={styles.searchResultHeader}>
-          <div>도서 검색 결과</div>
-          <div>
-            총{' '}
-            <span className="text-blue">{toReadableNumber(data?.pages[0].meta.total_count)}</span>건
-          </div>
-        </header>
-        {data?.pages.length ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
-      </div>
+      {isLoading ? (
+        <FadeLoader className={styles.loader} />
+      ) : (
+        <div className={styles.searchResult}>
+          <header className={styles.searchResultHeader}>
+            <h3 className={styles.subHeading}>도서 검색 결과</h3>
+            <div>
+              총 <span className="text-blue">{toReadableNumber(itemCount)}</span>건
+            </div>
+          </header>
+          {itemCount ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
+        </div>
+      )}
     </section>
   );
 }

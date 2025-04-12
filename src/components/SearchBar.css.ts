@@ -1,5 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
+export const form = style({
+  position: 'relative',
+  zIndex: 2
+});
+
 export const wrapper = style({
   gap: 11,
   height: 50,

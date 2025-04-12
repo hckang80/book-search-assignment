@@ -3,6 +3,8 @@ import { style } from '@vanilla-extract/css';
 export const list = style({
   display: 'grid',
   gap: 24,
+  position: 'absolute',
+  insetInline: 0,
   marginTop: -50,
   padding: '69px 25px 28px 51px',
   borderRadius: 24
@@ -10,7 +12,8 @@ export const list = style({
 
 export const item = style({
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  gap: 4
 });
 
 const button = style({
@@ -24,4 +27,9 @@ const button = style({
 
 export const label = style([button, {}]);
 
-export const deleteButton = style([button, {}]);
+export const deleteButton = style([
+  button,
+  {
+    flexShrink: 0
+  }
+]);

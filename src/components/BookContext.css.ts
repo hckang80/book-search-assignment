@@ -1,4 +1,14 @@
 import { style } from '@vanilla-extract/css';
+import { slideDown } from '../App.css';
+
+export const wrapper = style({
+  overflow: 'hidden',
+  selectors: {
+    '&[data-state=open]': {
+      animation: `${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1)`
+    }
+  }
+});
 
 export const context = style({
   display: 'flex',
@@ -23,7 +33,8 @@ export const linkedButton = style({
 });
 
 export const detail = style({
-  padding: '20px 48px 0 0'
+  padding: '20px 48px 0 0',
+  flexGrow: 1
 });
 
 export const title = style({

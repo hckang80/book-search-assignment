@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css';
+import { globalStyle, keyframes } from '@vanilla-extract/css';
 
 globalStyle('.title1', {
   fontWeight: 700,
@@ -80,4 +80,14 @@ globalStyle('.text-subtitle', {
 
 globalStyle('.text-blue', {
   color: 'var(--palette-primary)'
+});
+
+export const slideDown = keyframes({
+  from: { height: '0' },
+  to: { height: 'var(--radix-accordion-content-height)' }
+});
+
+export const slideUp = keyframes({
+  from: { height: 'var(--radix-accordion-content-height)' },
+  to: { height: '0' }
 });

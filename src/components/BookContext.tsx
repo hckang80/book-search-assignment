@@ -10,11 +10,16 @@ const BookContext = ({ book }: { book: BookDocument }) => {
   const { toggle, isLiked } = likedBooksStore();
 
   return (
-    <Accordion.Content>
+    <Accordion.Content className={styles.wrapper}>
       <div className={styles.context}>
         <div className={styles.thumbnail}>
           <span className={styles.image}>
-            <img src={book.thumbnail} alt={book.title} width="210" height="305" />
+            <img
+              src={book.thumbnail || '/blank_thumbnail.gif'}
+              alt={book.title}
+              width="210"
+              height="305"
+            />
             <button className={styles.linkedButton} onClick={() => toggle(book)}>
               {isLiked(book) ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
@@ -38,7 +43,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
           <Accordion.Trigger asChild>
             <Button size="4" color="gray" variant="soft">
               상세보기
-              <ChevronUp size={18} />
+              <ChevronUp size={18} color="#b1b8c0" />
             </Button>
           </Accordion.Trigger>
           <div className={styles.prices}>
