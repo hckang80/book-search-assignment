@@ -3,7 +3,7 @@ import { Button, Popover, Select, Theme } from '@radix-ui/themes';
 import { type BookSearchTarget, bookSearchTargets } from 'src/types';
 import * as styles from './DetailSearch.css';
 import { X } from 'lucide-react';
-import { targetName } from 'src/constants';
+import { TARGET_NAME } from 'src/constants';
 
 interface DetailSearchProps {
   onSubmit: (query: string, target: 'title' | 'person' | 'publisher') => void;
@@ -77,13 +77,13 @@ interface TargetSelectorProps {
 const TargetSelector = memo(({ target, onChange }: TargetSelectorProps) => {
   return (
     <Select.Root value={target} onValueChange={onChange}>
-      <Select.Trigger className={styles.targetSelect}>{targetName[target]}</Select.Trigger>
+      <Select.Trigger className={styles.targetSelect}>{TARGET_NAME[target]}</Select.Trigger>
       <Select.Content className={styles.targetOption}>
         {bookSearchTargets
           .filter((searchTarget) => searchTarget !== target)
           .map((label) => (
             <Select.Item value={label} key={label}>
-              {targetName[label]}
+              {TARGET_NAME[label]}
             </Select.Item>
           ))}
       </Select.Content>
