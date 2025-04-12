@@ -1,12 +1,9 @@
 import { style } from '@vanilla-extract/css';
-import { slideDown, slideUp } from '../App.css';
+import { slideDown } from '../App.css';
 
 export const wrapper = style({
   overflow: 'hidden',
   selectors: {
-    '&[data-state=closed]': {
-      animation: `${slideUp} 300ms cubic-bezier(0.87, 0, 0.13, 1)`
-    },
     '&[data-state=open]': {
       animation: `${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1)`
     }
