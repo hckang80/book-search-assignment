@@ -4,6 +4,7 @@ import * as styles from './BookList.css';
 import { BookContext, BookItem } from '.';
 import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
+import SyncLoader from 'react-spinners/SyncLoader';
 import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 
 interface BookListProps {
@@ -39,7 +40,7 @@ const BookList = ({ infiniteQuery }: BookListProps) => {
         }}
         enabled={hasNextPage && !isFetchingNextPage}
       />
-      {isFetchingNextPage && <p>로딩 중...</p>}
+      {isFetchingNextPage && <SyncLoader className={styles.loader} />}
     </>
   );
 };
