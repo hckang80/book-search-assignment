@@ -42,9 +42,10 @@ src/
 | `zustand`                            | 가볍고 직관적인 전역 상태 관리. persist 함수를 통해 로컬스토리지 저장도 가능. 반응성. 타입 안정성 면에서도 우수 |
 | `vanilla-extract`                    | Zero-runtime CSS in JS로 성능이 우수. 강력한 타입 지원 |
 | `axios`                              | HTTP 요청 설정, 인터셉터 기능 등 `fetch`보다 나은 확장성 |
+| `clsx`                              | 다중 및 동적 className을 명시적으로 선언 가능 |
 | `radix-ui`                   | Headless UI 라이브러리. 일관된 UI 구성과 쉬운 디자인 커스터마이징 가능 |
 | `lucide-react`                       | 다양한 아이콘 제공 및 커스텀으로 일관된 디자인 가능 |
-| `react-spinners`                              | 로딩 UI를 통해 사용자 경험 향상 |
+| `react-spinners`                              | 로딩 UI를 통해 사용자 경험 향상 |
 
 ---
 
