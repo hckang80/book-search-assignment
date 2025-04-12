@@ -21,6 +21,12 @@ export const searchResult = style({
 export const searchResultHeader = style({
   display: 'flex',
   gap: 16,
+  marginBottom: 32,
   fontWeight: 500,
   fontSize: 16
+});
+
+export const subHeading = style({
+  fontWeight: 'inherit',
+  fontSize: 'inherit'
 });
