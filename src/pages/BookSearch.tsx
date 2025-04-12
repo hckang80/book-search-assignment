@@ -45,6 +45,8 @@ export default function BookSearch() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value.trim());
+    if (showHistory) return;
+    setShowHistory(true);
   };
 
   const updateHistory = (query: string) => {
