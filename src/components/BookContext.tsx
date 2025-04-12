@@ -24,7 +24,7 @@ const BookContext = ({ book }: { book: BookDocument }) => {
               {isLiked(book) ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
               ) : (
-                <Heart color="var(--palette-gray)" />
+                <Heart color="#fff" />
               )}
             </button>
           </span>
