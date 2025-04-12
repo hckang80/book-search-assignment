@@ -28,7 +28,8 @@ export const targetSelect = style({
   border: 0,
   borderBottom: '1px solid #d2d6da',
   boxShadow: 'none',
-  borderRadius: 0
+  borderRadius: 0,
+  fontWeight: 700
 });
 
 export const targetOption = style({

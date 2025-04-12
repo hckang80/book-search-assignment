@@ -54,8 +54,35 @@ body {
     'Malgun Gothic', '맑은 고딕', sans-serif;
   color: var(--text-primary);
 
-  &[data-scroll-locked] {
-    overflow: hidden;
+  .rt-Button {
+    border-radius: 8px;
+    gap: 5px;
+    white-space: nowrap;
+
+    svg.lucide {
+      flex-shrink: 0;
+    }
+
+    &.rt-r-size-4 {
+      min-width: 115px;
+      padding-inline: 15px;
+      font-size: 16px;
+    }
+
+    &.rt-variant-solid {
+      background: var(--palette-primary);
+    }
+    &.rt-variant-soft {
+      background: var(--palette-light-gray);
+    }
+  }
+
+  .rt-SelectIcon {
+    fill: #b1b8c0;
+  }
+
+  .radix-themes:where([data-is-root-theme='true']) {
+    min-height: auto;
   }
 }
 
@@ -160,33 +187,4 @@ dialog {
   position: absolute;
   width: 1px;
   white-space: nowrap;
-}
-
-#root {
-  .rt-Button {
-    border-radius: 8px;
-    gap: 5px;
-    white-space: nowrap;
-
-    &.rt-r-size-4 {
-      min-width: 115px;
-      padding-inline: 15px;
-      font-size: 16px;
-    }
-
-    &.rt-variant-solid {
-      background: var(--palette-primary);
-    }
-    &.rt-variant-soft {
-      background: var(--palette-light-gray);
-    }
-
-    svg.lucide {
-      flex-shrink: 0;
-    }
-  }
-
-  .radix-themes:where([data-is-root-theme='true']) {
-    min-height: auto;
-  }
 }
