@@ -14,7 +14,12 @@ const BookContext = ({ book }: { book: BookDocument }) => {
       <div className={styles.context}>
         <div className={styles.thumbnail}>
           <span className={styles.image}>
-            <img src={book.thumbnail} alt={book.title} width="210" height="305" />
+            <img
+              src={book.thumbnail || '/blank_thumbnail.gif'}
+              alt={book.title}
+              width="210"
+              height="305"
+            />
             <button className={styles.linkedButton} onClick={() => toggle(book)}>
               {isLiked(book) ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
