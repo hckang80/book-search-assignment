@@ -30,5 +30,5 @@ export const subHeading = style({
 });
 
 export const loader = style({
-  margin: '120px auto'
+  margin: '180px auto'
 });
