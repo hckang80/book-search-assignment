@@ -1,23 +1,33 @@
 import type { BookDocument } from 'src/types';
 import { Button } from '@radix-ui/themes';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Heart } from 'lucide-react';
 import * as styles from './BookItem.css';
 import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib/utils';
+import { likedBooksStore } from 'src/store';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
+  const { toggle, isLiked } = likedBooksStore();
+
   return (
     <div className={`opener ${styles.opener}`}>
       <div className={styles.thumbnail}>
-        <img
-          className={styles.img}
-          src={book.thumbnail || '/blank_thumbnail.gif'}
-          alt=""
-          width="48"
-          height="70"
-          loading={pageIndex ? 'lazy' : 'eager'}
-          decoding={pageIndex ? 'async' : 'sync'}
-        />
+        <button className={styles.linkedButton} onClick={() => toggle(book)}>
+          <img
+            className={styles.img}
+            src={book.thumbnail || '/blank_thumbnail.gif'}
+            alt=""
+            width="48"
+            height="70"
+            loading={pageIndex ? 'lazy' : 'eager'}
+            decoding={pageIndex ? 'async' : 'sync'}
+          />
+          {isLiked(book) ? (
+            <Heart color="var(--palette-red)" fill="var(--palette-red)" />
+          ) : (
+            <Heart color="var(--palette-gray)" />
+          )}
+        </button>
       </div>
       <div className={styles.title}>
         <span className="title3">{book.title}</span>
