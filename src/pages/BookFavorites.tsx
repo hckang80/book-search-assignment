@@ -1,6 +1,6 @@
 import { BookList, NoData } from 'src/components';
 import { useInfiniteLikedBooks } from 'src/hooks';
-import { toReadableNumber } from 'src/lib/utils';
+import { toReadableNumber } from 'src/lib';
 import { likedBooksStore } from 'src/store';
 import * as styles from './PageLayout.css';
 

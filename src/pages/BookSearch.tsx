@@ -2,9 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { BookList, DetailSearch, NoData, SearchBar, SearchHistory } from 'src/components';
 import type { BookSearchTarget } from 'src/types';
 import { useInfiniteBookSearch } from 'src/hooks';
-import { PAGE_SIZE } from 'src/lib/constant';
+import { PAGE_SIZE } from 'src/constants';
 import * as styles from './PageLayout.css';
-import { toReadableNumber } from 'src/lib/utils';
+import { toReadableNumber } from 'src/lib';
 import { useSearchParams } from 'react-router';
 import FadeLoader from 'react-spinners/FadeLoader';
 

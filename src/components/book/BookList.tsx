@@ -1,7 +1,7 @@
 import type { BookInstance } from 'src/types';
-import { InfiniteScrollTrigger } from './shared';
+import { InfiniteScrollTrigger } from 'src/components/common';
 import * as styles from './BookList.css';
-import { BookContext, BookItem } from '.';
+import { BookContext, BookItem } from '..';
 import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
 import SyncLoader from 'react-spinners/SyncLoader';

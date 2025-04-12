@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
-import { QueryProvider } from './context/query/QueryProvider.tsx';
+import { QueryProvider } from './contexts/query/QueryProvider.tsx';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import { BookSearch, BookFavorites } from './pages';
 

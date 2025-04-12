@@ -3,7 +3,7 @@ import { Button } from '@radix-ui/themes';
 import { ChevronDown, Heart } from 'lucide-react';
 import * as styles from './BookItem.css';
 import { Accordion } from 'radix-ui';
-import { isSale, toReadableNumber } from 'src/lib/utils';
+import { isSale, toReadableNumber } from 'src/lib';
 import { likedBooksStore } from 'src/store';
 
 const BookItem = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {

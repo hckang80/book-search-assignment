@@ -3,7 +3,7 @@ import { Accordion } from 'radix-ui';
 import * as styles from './BookContext.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
-import { isSale, toReadableNumber } from 'src/lib/utils';
+import { isSale, toReadableNumber } from 'src/lib';
 import { likedBooksStore } from 'src/store';
 
 const BookContext = ({ book }: { book: BookDocument }) => {
