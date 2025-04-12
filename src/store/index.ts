@@ -1,1 +1,1 @@
-export * from './likedBooksStore';
+export * from './favoritedBooksStore';

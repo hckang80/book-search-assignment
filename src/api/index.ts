@@ -1,6 +1,6 @@
 import { axiosInstance } from './axiosInstance';
 import type { BookDocument, BookInstance, BookSearchParams } from 'src/types';
-import { PAGE_SIZE } from 'src/lib/constant';
+import { PAGE_SIZE } from 'src/constants';
 
 export const fetchBookSearch = async (params: BookSearchParams) => {
   const { data } = await axiosInstance.get<BookInstance>(`/search/book`, { params });
