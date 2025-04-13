@@ -50,7 +50,7 @@ interface SearchFormProps {
   onSubmit: (query: string, target: BookSearchTarget) => void;
 }
 
-const SearchForm = memo(({ onSubmit }: SearchFormProps) => {
+const SearchForm = ({ onSubmit }: SearchFormProps) => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
@@ -69,8 +69,7 @@ const SearchForm = memo(({ onSubmit }: SearchFormProps) => {
       <Button className={styles.searchButton}>검색하기</Button>
     </form>
   );
-});
-SearchForm.displayName = 'SearchForm';
+};
 
 interface TargetSelectorProps {
   target: BookSearchTarget;

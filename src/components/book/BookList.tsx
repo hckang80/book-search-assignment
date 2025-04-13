@@ -6,7 +6,6 @@ import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
 import SyncLoader from 'react-spinners/SyncLoader';
 import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { memo } from 'react';
 
 interface BookListProps {
   infiniteQuery: UseInfiniteQueryResult<InfiniteData<BookInstance, unknown>, Error>;
@@ -45,6 +44,5 @@ const BookList = ({ infiniteQuery }: BookListProps) => {
     </>
   );
 };
-BookList.displayName = 'BookList';
 
-export default memo(BookList);
+export default BookList;
