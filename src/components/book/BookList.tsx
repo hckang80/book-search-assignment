@@ -1,14 +1,13 @@
-import type { BookInstance } from 'src/types';
 import { InfiniteScrollTrigger } from 'src/components/common';
 import * as styles from './BookList.css';
 import { BookSpecs, BookPreview } from '..';
 import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
 import SyncLoader from 'react-spinners/SyncLoader';
-import type { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
+import { useInfiniteBookSearch } from 'src/hooks';
 
 interface BookListProps {
-  infiniteQuery: UseInfiniteQueryResult<InfiniteData<BookInstance, unknown>, Error>;
+  infiniteQuery: ReturnType<typeof useInfiniteBookSearch>;
 }
 
 const BookList = ({ infiniteQuery }: BookListProps) => {
