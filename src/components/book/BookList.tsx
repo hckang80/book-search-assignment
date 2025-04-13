@@ -4,15 +4,18 @@ import { BookSpecs, BookPreview } from '..';
 import { Accordion } from 'radix-ui';
 import { Theme } from '@radix-ui/themes';
 import SyncLoader from 'react-spinners/SyncLoader';
-import { useInfiniteBookSearch } from 'src/hooks';
+import { memo } from 'react';
+import type { InfiniteData } from '@tanstack/react-query';
+import { BookInstance } from 'src/types';
 
 interface BookListProps {
-  infiniteQuery: ReturnType<typeof useInfiniteBookSearch>;
+  data?: InfiniteData<BookInstance>;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
 }
 
-const BookList = ({ infiniteQuery }: BookListProps) => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = infiniteQuery;
-
+const BookList = ({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: BookListProps) => {
   return (
     <>
       <Accordion.Root type="single" collapsible>
@@ -44,4 +47,4 @@ const BookList = ({ infiniteQuery }: BookListProps) => {
   );
 };
 
-export default BookList;
+export default memo(BookList);

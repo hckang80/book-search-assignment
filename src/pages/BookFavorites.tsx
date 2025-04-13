@@ -8,6 +8,7 @@ export default function BookFavorites() {
   const { favoritedBooks } = favoritedBooksStore();
 
   const infiniteQuery = useInfiniteFavoriteBooks(favoritedBooks);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = infiniteQuery;
 
   return (
     <section>
@@ -20,7 +21,12 @@ export default function BookFavorites() {
           </div>
         </header>
         {favoritedBooks.length ? (
-          <BookList infiniteQuery={infiniteQuery} />
+          <BookList
+            data={data}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         ) : (
           <NoData message="찜한 책이 없습니다." />
         )}

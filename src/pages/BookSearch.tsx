@@ -40,7 +40,7 @@ export default function BookSearch() {
   };
 
   const infiniteQuery = useInfiniteBookSearch(searchQuery, params);
-  const { data, isLoading } = infiniteQuery;
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = infiniteQuery;
   const itemCount = data?.pages[0].meta.total_count || 0;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,7 +139,16 @@ export default function BookSearch() {
               총 <span className="text-blue">{toReadableNumber(itemCount)}</span>건
             </div>
           </header>
-          {itemCount ? <BookList infiniteQuery={infiniteQuery} /> : <NoData />}
+          {itemCount ? (
+            <BookList
+              data={data}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          ) : (
+            <NoData />
+          )}
         </div>
       )}
     </section>
