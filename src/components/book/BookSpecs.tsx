@@ -13,7 +13,7 @@ const BookSpecs = ({
 }: {
   book: BookDocument;
   toggle: (book: BookDocument) => void;
-  isFavorited: (book: BookDocument) => boolean;
+  isFavorited: boolean;
 }) => {
   return (
     <Accordion.Content className={styles.wrapper}>
@@ -27,7 +27,7 @@ const BookSpecs = ({
               height="305"
             />
             <button className={styles.linkedButton} onClick={() => toggle(book)}>
-              {isFavorited(book) ? (
+              {isFavorited ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
               ) : (
                 <Heart color="#fff" />

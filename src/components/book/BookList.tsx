@@ -35,9 +35,9 @@ const BookList = ({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: Book
                     book={book}
                     pageIndex={pageIndex}
                     toggle={toggle}
-                    isFavorited={isFavorited}
+                    isFavorited={isFavorited(book)}
                   />
-                  <BookSpecs book={book} toggle={toggle} isFavorited={isFavorited} />
+                  <BookSpecs book={book} toggle={toggle} isFavorited={isFavorited(book)} />
                 </Accordion.Item>
               ))}
             </div>

@@ -17,7 +17,7 @@ const BookPreview = ({
   book: BookDocument;
   pageIndex: number;
   toggle: (book: BookDocument) => void;
-  isFavorited: (book: BookDocument) => boolean;
+  isFavorited: boolean;
 }) => {
   return (
     <div className={clsx('opener', styles.opener)}>
@@ -32,7 +32,7 @@ const BookPreview = ({
             loading={pageIndex ? 'lazy' : 'eager'}
             decoding={pageIndex ? 'async' : 'sync'}
           />
-          {isFavorited(book) ? (
+          {isFavorited ? (
             <Heart
               className={styles.icon}
               size={14}
