@@ -4,11 +4,17 @@ import * as styles from './BookSpecs.css';
 import { ChevronUp, Heart } from 'lucide-react';
 import { Button } from '@radix-ui/themes';
 import { isSale, toReadableNumber } from 'src/lib';
-import { favoritedBooksStore } from 'src/store';
+import { memo } from 'react';
 
-const BookSpecs = ({ book }: { book: BookDocument }) => {
-  const { toggle, isFavorited } = favoritedBooksStore();
-
+const BookSpecs = ({
+  book,
+  toggle,
+  isFavorited
+}: {
+  book: BookDocument;
+  toggle: (book: BookDocument) => void;
+  isFavorited: boolean;
+}) => {
   return (
     <Accordion.Content className={styles.wrapper}>
       <div className={styles.context}>
@@ -21,7 +27,7 @@ const BookSpecs = ({ book }: { book: BookDocument }) => {
               height="305"
             />
             <button className={styles.linkedButton} onClick={() => toggle(book)}>
-              {isFavorited(book) ? (
+              {isFavorited ? (
                 <Heart color="var(--palette-red)" fill="var(--palette-red)" />
               ) : (
                 <Heart color="#fff" />
@@ -71,4 +77,4 @@ const BookSpecs = ({ book }: { book: BookDocument }) => {
   );
 };
 
-export default BookSpecs;
+export default memo(BookSpecs);

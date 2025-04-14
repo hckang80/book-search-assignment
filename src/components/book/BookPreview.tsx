@@ -4,12 +4,21 @@ import { ChevronDown, Heart } from 'lucide-react';
 import * as styles from './BookPreview.css';
 import { Accordion } from 'radix-ui';
 import { isSale, toReadableNumber } from 'src/lib';
-import { favoritedBooksStore } from 'src/store';
+
 import clsx from 'clsx';
+import { memo } from 'react';
 
-const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: number }) => {
-  const { toggle, isFavorited } = favoritedBooksStore();
-
+const BookPreview = ({
+  book,
+  pageIndex,
+  toggle,
+  isFavorited
+}: {
+  book: BookDocument;
+  pageIndex: number;
+  toggle: (book: BookDocument) => void;
+  isFavorited: boolean;
+}) => {
   return (
     <div className={clsx('opener', styles.opener)}>
       <div className={styles.thumbnail}>
@@ -23,7 +32,7 @@ const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: numbe
             loading={pageIndex ? 'lazy' : 'eager'}
             decoding={pageIndex ? 'async' : 'sync'}
           />
-          {isFavorited(book) ? (
+          {isFavorited ? (
             <Heart
               className={styles.icon}
               size={14}
@@ -61,4 +70,4 @@ const BookPreview = ({ book, pageIndex }: { book: BookDocument; pageIndex: numbe
   );
 };
 
-export default BookPreview;
+export default memo(BookPreview);
