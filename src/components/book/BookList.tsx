@@ -7,6 +7,7 @@ import SyncLoader from 'react-spinners/SyncLoader';
 import { memo } from 'react';
 import type { InfiniteData } from '@tanstack/react-query';
 import { BookInstance } from 'src/types';
+import { favoritedBooksStore } from 'src/store';
 
 interface BookListProps {
   data?: InfiniteData<BookInstance>;
@@ -16,6 +17,8 @@ interface BookListProps {
 }
 
 const BookList = ({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: BookListProps) => {
+  const { toggle, isFavorited } = favoritedBooksStore();
+
   return (
     <>
       <Accordion.Root type="single" collapsible>
@@ -28,7 +31,12 @@ const BookList = ({ data, fetchNextPage, hasNextPage, isFetchingNextPage }: Book
                   key={book.title + book.isbn}
                   value={book.title + book.isbn}
                 >
-                  <BookPreview book={book} pageIndex={pageIndex} />
+                  <BookPreview
+                    book={book}
+                    pageIndex={pageIndex}
+                    toggle={toggle}
+                    isFavorited={isFavorited}
+                  />
                   <BookSpecs book={book} />
                 </Accordion.Item>
               ))}
